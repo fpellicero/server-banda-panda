@@ -22,7 +22,7 @@ var loggedUser;
 				auth_token: data.auth_token
 			};
 			$(".login").fadeToggle(function() {
-				$('#test').removeClass("hidden");
+				$('#layout').removeClass("hidden");
 			});
 			console.log(loggedUser);
 		})
