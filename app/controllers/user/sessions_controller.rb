@@ -10,4 +10,17 @@ class User::SessionsController < Devise::SessionsController
         }
       end
     end
+
+    def destroy
+      respond_to do |format|
+        format.html { super }
+        format.json {
+          warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#new")
+          current_user.authentication_token = nil;
+          current_user.save
+          head :status => :no_content
+        }
+      end
+    end
+
 end
