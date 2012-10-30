@@ -2,6 +2,7 @@
 // Variable global on guardarem l'usuari autenticat
 var loggedUser;
 
+// Funcio anònima per a no embrutar l'espai de noms
 (function() {
 
 
@@ -16,23 +17,29 @@ var loggedUser;
 
 		// Fem la petició a la API
 		$.post( url, { 'user[email]': email, 'user[password]': pass})
-		.success(function(data) {
+		
+		// Callback en cas d'èxit
+		.success(function(data) { 
 			loggedUser = {
 				id: data.user_id,
 				auth_token: data.auth_token
 			};
 			$(".login").fadeToggle(function() {
+				$('#layout').fadeToggle();
 				$('#layout').removeClass("hidden");
 			});
-			console.log(loggedUser);
 		})
-		.error(function() {
+
+		// Callback en cas d'error
+		.error(function() {			
 			$("#login .alert-error").fadeToggle();
 		});
+		
 	};
 
+	// Un cop tenim el DOM carregat, fem el bind.
 	$(document).ready(function() {
 		$("#login").submit(log_in);
 	});
 
-})();
+})(); // Executem la funció
