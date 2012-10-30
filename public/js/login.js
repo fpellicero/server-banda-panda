@@ -31,8 +31,9 @@ var loggedUser;
 		})
 
 		// Callback en cas d'error
-		.error(function() {			
-			$("#login .alert-error").fadeToggle("fast");
+		.error(function() {
+			$("#login .alert-error").toggle(false);			
+			$("#login .alert-error").toggle("slow");
 		});
 		
 	};
