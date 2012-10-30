@@ -32,7 +32,7 @@ var loggedUser;
 
 		// Callback en cas d'error
 		.error(function() {			
-			$("#login .alert-error").fadeToggle();
+			$("#login .alert-error").fadeToggle("fast");
 		});
 		
 	};
