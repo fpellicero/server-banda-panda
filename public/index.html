@@ -13,6 +13,7 @@
 
     <!-- Script de login -->
     <script src="js/login.js"></script>
+    <script src="js/musicSearch.js"></script>
   </head>
   <body>
     
@@ -62,20 +63,43 @@
 
           <!-- Main content -->
           <div id="main-content" class="well span9" style="height: 100%">
-            <div class="row" style="margin: 10px">
-              <form class="form-search pull-left">
+            
+
+            <div class="row" style="margin: 10px; height: 100%">
+              <form id="searchForm" action="" class="form-search pull-right">
                 <div class="input-append">
                   <input type="text" class="search-query">
                   <button type="submit" class="btn"><i class="icon-search"></i></button>
                 </div>
               </form>
-            </div>
-            <div class="row" style="margin: 10px">
-              <ul class="nav nav-tabs">
-                <li><a href="#">Songs</a></li>
+              <ul class="nav nav-pills">
+                <li id="songTab"><a href="#">Songs</a></li>
                 <li><a href="#">Albums</a></li>
                 <li><a href="#">Artists</a></li>
               </ul>
+              <div style="height:80%; overflow-y: scroll">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Album</th>
+                      <th>Artist</th>
+                    </tr>
+                  </thead>
+                  <tr id="songResult-Template" class="hidden">
+                    <td class="songTitle">Title</td>
+                    <td class="albumTitle">Album</td>
+                    <td class="artistName">Artist</td>
+                    <td class="buttons">
+                      <button class="btn btn-mini"><i class="icon-plus-sign"></i></button>
+                      <button class="btn btn-mini"><i class="icon-play"></i></button>
+                    </td>
+                  </tr>
+                  <tbody id="resultSongs">
+                    
+                  </tbody>
+                </table>
+              </div>
             </div>
             
           </div>
@@ -86,7 +110,17 @@
 
           <!-- Footer -->
           <div id="test" class="well span12" style="height: 85%">
+            <div class="span2">
+              <center><img class="span9" src="/img/logo.png"></center>
+          </div>
+          <div class="span2">
+            <button class="btn"><i class="icon-fast-backward"></i></button>
+            <button class="btn"><i class="icon-play"></i></button>
+            <button class="btn"><i class="icon-fast-forward"></i></button>
+          </div>
             
+          <audio id="#audioPlayer">
+          </audio>
           </div>
         </div>
 
