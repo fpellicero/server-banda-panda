@@ -5,12 +5,13 @@ gem 'rails', '3.2.8'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-group :development do
-	gem 'sqlite3'
-end
 
+# Adaptador per connectar a la bdd de mysqlfib.fib.upc.es
+gem 'mysql2'
+
+# Adaptador per a la PostgreSQL que utilitza Heroku
 group :production do
-	gem 'mysql2'
+	gem 'pg'
 end
 
 # Autenticació d'usuaris
