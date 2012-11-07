@@ -11,6 +11,16 @@ html {
 	display: none;
 }
 
-.resultList {
-	
+#currentCover {
+	margin-top: -25%;
+	float: left;
 }
+
+.playerButtons {
+	clear: both;
+	margin-left: -25%;
+	position: relative;
+	top: -16px;
+
+}
+

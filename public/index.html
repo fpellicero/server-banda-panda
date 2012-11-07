@@ -14,6 +14,7 @@
     <!-- Script de login -->
     <script src="js/login.js"></script>
     <script src="js/musicSearch.js"></script>
+    <script src="js/audioplayer.js"></script>
   </head>
   <body>
     
@@ -91,8 +92,8 @@
                     <td class="albumTitle">Album</td>
                     <td class="artistName">Artist</td>
                     <td class="buttons">
-                      <button class="btn btn-mini"><i class="icon-plus-sign"></i></button>
-                      <button class="btn btn-mini"><i class="icon-play"></i></button>
+                      <button class="btn btn-mini addButton"><i class="icon-plus-sign"></i></button>
+                      <button class="btn btn-mini playButton"><i class="icon-play"></i></button>
                     </td>
                   </tr>
                   <tbody id="resultSongs">
@@ -111,15 +112,24 @@
           <!-- Footer -->
           <div id="test" class="well span12" style="height: 85%">
             <div class="span2">
-              <center><img class="span9" src="/img/logo.png"></center>
+              <center>
+                <img id="currentCover" class="img-rounded span9" src="/img/logo.png">
+                <div class="playerButtons">
+                  <button class="btn"><i class="icon-fast-backward"></i></button>
+                  <button class="btn"><i class="icon-play"></i></button>
+                  <button class="btn"><i class="icon-fast-forward"></i></button>
+                </div>
+              </center>
           </div>
           <div class="span2">
-            <button class="btn"><i class="icon-fast-backward"></i></button>
-            <button class="btn"><i class="icon-play"></i></button>
-            <button class="btn"><i class="icon-fast-forward"></i></button>
-          </div>
+            <strong>Title: </strong><span id="currentTitle"></span><br>
+            <strong>Album: </strong><span id="currentAlbum"></span><br>
+            <strong>Artist: </strong><span id="currentArtist"></span><br>
+          </div> 
+          
             
-          <audio id="#audioPlayer">
+          <audio id="audioPlayer">
+            <source id="mp3Audio" type="audio/mp3" src="" />
           </audio>
           </div>
         </div>
