@@ -50,7 +50,31 @@ var currentSearch;
 		cover: "/covers/1.jpg"
 	};
 
-	var songs = [song1,song2,song3,song4,song5,song6];
+	var song7 = {
+		title: "A Flight and a Crash",
+		album: "A Flight and a Crash",
+		artist: "Hot Water Music",
+		audio: "/audio/7.mp3",
+		cover: "/covers/2.jpg"
+	};
+
+	var song8 = {
+		title: "Old Rules",
+		album: "A Flight and a Crash",
+		artist: "Hot Water Music",
+		audio: "/audio/8.mp3",
+		cover: "/covers/2.jpg"
+	};
+
+	var song9 = {
+		title: "She Takes it so Well",
+		album: "A Flight and a Crash",
+		artist: "Hot Water Music",
+		audio: "/audio/9.mp3",
+		cover: "/covers/2.jpg"
+	};
+
+	var songs = [song1,song2,song3,song4,song5,song6,song7,song8,song9];
 
 	function printSongs(event) {
 		event.preventDefault();
@@ -76,11 +100,10 @@ var currentSearch;
 			$("td.albumTitle",songElement).text(song.album);
 			$("td.artistName",songElement).text(song.artist);
 			$("button.addButton",songElement).click(function() {
-				currentPlaylist.push(song);
+				addToCurrentPlaylist(song);
 			});
 			$("button.playButton",songElement).click(function() {
-				currentPlaylist.unshift(song);
-				playMusic();
+				playNow(song);
 			})
 			songElement.attr("audio_url",song.audio);
 			songElement.attr("cover_url",song.cover);

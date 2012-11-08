@@ -5,6 +5,7 @@ body {
 
 html {
 	height: 100%;
+	overflow: hidden;
 }
 
 .hidden {
@@ -14,6 +15,7 @@ html {
 #currentCover {
 	margin-top: -25%;
 	float: left;
+	max-height: 120px;
 }
 
 .playerButtons {
@@ -22,5 +24,31 @@ html {
 	position: relative;
 	top: -16px;
 
+}
+
+#currentPlaylist {
+	height: 100%;
+	width: 100000px;
+}
+
+#songInfo {
+	margin-left: -2%;
+}
+
+#currentPlaylistWrapper {
+	overflow: hidden;
+	height: 100%
+}
+
+.coverThumbnail {
+	height: 85% !important;
+	width: 65px;
+	margin-left: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.currentSongThumbnail {
+	box-shadow: 0px 0px 3px 3px #08C;
 }
 
