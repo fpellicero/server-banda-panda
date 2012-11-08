@@ -22,19 +22,30 @@ function renderPlaylist() {
 
 function playMusic() {
 	
-	currentSong = currentPlaylist[songNum++];
-	$("#currentCover").attr("src", currentSong.cover);
-	player = document.getElementById("audioPlayer");
-	player.setAttribute("src",currentSong.audio);
+	if(0 < currentPlaylist.length && songNum < currentPlaylist.length) {
+		currentSong = currentPlaylist[songNum++];
+		$("#currentCover").attr("src", currentSong.cover);
+		player = document.getElementById("audioPlayer");
+		player.setAttribute("src",currentSong.audio);
 
-	$("#currentTitle").html(currentSong.title);
-	$("#currentAlbum").html(currentSong.album);
-	$("#currentArtist").html(currentSong.artist);
-	$("#playButton").html("<i class=icon-pause></i>");
-	renderPlaylist();
-
+		$("#currentTitle").html(currentSong.title);
+		$("#currentAlbum").html(currentSong.album);
+		$("#currentArtist").html(currentSong.artist);
+		$("#playButton").html("<i class=icon-pause></i>");
+		renderPlaylist();
+		player.play();	
+	}else {
+		$("#currentCover").attr("src", "/covers/noCover.png");
+		currentSong = 0;
+		player = document.getElementById("audioPlayer");
+		player.setAttribute("src","");
+		$("#currentTitle").html("");
+		$("#currentAlbum").html("");
+		$("#currentArtist").html("");
+		$("#playButton").html("<i class=icon-play></i>");
+		renderPlaylist();
+	}
 	
-	player.play();
 };
 
 function addToCurrentPlaylist(song) {
