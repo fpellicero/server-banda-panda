@@ -90,7 +90,13 @@ $(document).ready(function() {
 		playMusic();
 	});
 	$("#currentPlaylistWrapper").mousewheel(function(event, delta) {
-      this.scrollLeft -= (delta * 30);
+	  maxScroll = (-240 + (70 * currentPlaylist.length));
+	  futureScroll = this.scrollLeft - (delta * 30);
+	  if (futureScroll >= maxScroll) {
+	  	this.scrollLeft = maxScroll;
+	  }else {
+	  	this.scrollLeft = futureScroll;	
+	  }
       event.preventDefault();
    });
 });
