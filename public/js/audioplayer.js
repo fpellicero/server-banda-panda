@@ -5,9 +5,15 @@ function renderPlaylist() {
 	$("#currentPlaylist").empty();
 	var i = 0;
 	$(currentPlaylist).each(function() {
-		thumbnail = $("<img id='thumbnail" + i++ + "' rel='tooltip' title='" + this.title +"' data-placement=top class='img-rounded coverThumbnail' src='" + this.cover + "'>");
+		id = i++;
+		thumbnail = $("<img id='thumbnail" + id + "' num=" + id + " rel='tooltip' title='" + this.title +"' data-placement=top class='img-rounded coverThumbnail' src='" + this.cover + "'>");
 		thumbnail.tooltip();
 		thumbnail.appendTo("#currentPlaylist");
+		thumbnail.click(function() {
+			songNum = $(this).attr("num");
+			console.log(songNum);
+			playMusic();
+		});
 		
 	});
 	var id = songNum-1;
