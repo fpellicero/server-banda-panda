@@ -1,5 +1,7 @@
 ServerBandaPanda::Application.routes.draw do
 
+  resources :songs
+
   devise_for :users, :controllers => { :sessions => "user/sessions"}
 
   root :to => "home#index"
