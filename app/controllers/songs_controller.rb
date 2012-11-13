@@ -61,6 +61,10 @@ class SongsController < ApplicationController
 
   #GET /songs/search?q=”...”&order=”...”&lim=”...”&offset=”...”
   def search
-    @songs = Song.select(params[:q]).limit(params[:lim]).offset(params[:offset])
+    @songs = Song.where("title LIKE %?% LIMIT = ? OFFSET = ?", params[:q], params[:lim], params[:offset])
+    
+    respond_to do |format|
+      format.json { render json: @songs }
+    end
   end
 end
