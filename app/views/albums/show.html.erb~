@@ -2,17 +2,17 @@
 
 <p>
   <b>Title:</b>
-  <%= @song.title %>
+  <%= @album.title %>
 </p>
 
 <p>
   <b>Id album:</b>
-  <%= @song.id_album %>
+  <%= @album.id_artist %>
 </p>
 
 <p>
   <b>Url:</b>
-  <%= @song.url %>
+  <%= @album.cover %>
 </p>
 
 

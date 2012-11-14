@@ -15,6 +15,17 @@ class SongsController < ApplicationController
     @song = Song.find(params[:id])
   end
 
+  # GET /songs/new
+  # GET /songs/new.json
+  def new
+    @song = Song.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @song }
+    end
+  end
+
   # POST /songs
   # POST /songs.json
   def create
@@ -61,7 +72,7 @@ class SongsController < ApplicationController
 
   #GET /songs/search?q=”...”&order=”...”&lim=”...”&offset=”...”
   def search
-    @songs = Song.where("title LIKE %?% LIMIT = ? OFFSET = ?", params[:q], params[:lim], params[:offset])
+    @songs = Song.where("title LIKE ?", "%#{params[:q]}%").limit(params[:lim]).offset(params[:offset])
     
     respond_to do |format|
       format.json { render json: @songs }

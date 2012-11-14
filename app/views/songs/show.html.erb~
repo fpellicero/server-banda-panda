@@ -11,6 +11,11 @@
 </p>
 
 <p>
+  <b>Id artist:</b>
+  <%= @song.id_artist %>
+</p>
+
+<p>
   <b>Url:</b>
   <%= @song.url %>
 </p>
