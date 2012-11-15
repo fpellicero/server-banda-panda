@@ -72,7 +72,7 @@ class SongsController < ApplicationController
 
   #GET /songs/search?q=”...”&order=”...”&lim=”...”&offset=”...”
   def search
-    @songs = Song.where("title LIKE ?", "%#{params[:q]}%").limit(params[:lim]).offset(params[:offset]).order("title ?", params[:order])
+    @songs = Song.where("title LIKE ?", "%#{params[:q]}%").limit(params[:lim]).offset(params[:offset]).order("title #{params[:order]}")
     results = Array.new()
     @songs.each do |s|
       result = {:song_id => s.id, :song_title => s.title, :album_id => s.album_id, :album_title => s.album.title,
