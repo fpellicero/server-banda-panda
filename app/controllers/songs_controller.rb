@@ -73,9 +73,14 @@ class SongsController < ApplicationController
   #GET /songs/search?q=”...”&order=”...”&lim=”...”&offset=”...”
   def search
     @songs = Song.where("title LIKE ?", "%#{params[:q]}%").limit(params[:lim]).offset(params[:offset])
-    
+    results = Array.new()
+    @songs.each do |s|
+      result = {:song_id => s.id, :song_title => s.title, :album_id => s.album_id, :album_title => s.album.title,
+                   :artist_id => s.album.artist_id, :artist_name => s.album.artist.name, :audio_url => s.url, :cover_url => s.album.cover}
+      results.push(result)
+    end
     respond_to do |format|
-      format.json { render json: @songs }
+      format.json { render json: results }
     end
   end
 end
