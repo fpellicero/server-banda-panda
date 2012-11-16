@@ -1,7 +1,7 @@
 var currentSearch;
 
 (function () {
-
+	/*
 	var song1 = {
 		title: "American Slang",
 		album: "Handwritten",
@@ -73,40 +73,41 @@ var currentSearch;
 		audio: "/audio/9.mp3",
 		cover: "/covers/2.jpg"
 	};
+	*/
+	var songs = [];
 
-	var songs = [song1,song2,song3,song4,song5,song6,song7,song8,song9];
-
-	function printSongs(event) {
+	function search(event) {
 		event.preventDefault();
-		$("#songTab").addClass("active");
-		$("#resultSongs").empty();
-		// Busquem les cançons
-		/*
+		query = $("#searchForm input").val();
 		$.ajax({
-        url: "/music/search",
-        headers: "X-AUTH-TOKEN:" + loggedUser.auth_token
+        url: "/songs/search.json?q=" + query,
+        headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
         success: function(data,textStatus,jqXHR){
-          	songs = data
+          	songs = data;
             printSongs();
         },
         dataType: "json",
         });
-		*/
+	}
+
+	function printSongs() {
+		$("#songTab").addClass("active");
+		$("#resultSongs").empty();
 
 		// Funcio que pintarà les cançons
 		function addSong(song) {
 			var songElement = $("#songResult-Template").clone().attr("id","").appendTo("#resultSongs").removeClass("hidden");
-			$("td.songTitle",songElement).text(song.title);
-			$("td.albumTitle",songElement).text(song.album);
-			$("td.artistName",songElement).text(song.artist);
+			$("td.songTitle",songElement).text(song.song_title);
+			$("td.albumTitle",songElement).text(song.album_title);
+			$("td.artistName",songElement).text(song.artist_name);
 			$("button.addButton",songElement).click(function() {
 				addToCurrentPlaylist(song);
 			});
 			$("button.playButton",songElement).click(function() {
 				playNow(song);
 			})
-			songElement.attr("audio_url",song.audio);
-			songElement.attr("cover_url",song.cover);
+			songElement.attr("audio_url",song.audio_url);
+			songElement.attr("cover_url",song.cover_url);
 		}
 		console.log(songs);
 		$(songs).each(function() {
@@ -117,7 +118,7 @@ var currentSearch;
 	$(document).ready(function() {
 		// Bind dels triggers
 		console.log("Searchform")
-		$("#searchForm").submit(printSongs);
+		$("#searchForm").submit(search);
 	})
 
 

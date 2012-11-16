@@ -6,7 +6,7 @@ function renderPlaylist() {
 	var i = 0;
 	$(currentPlaylist).each(function() {
 		id = i++;
-		thumbnail = $("<img id='thumbnail" + id + "' num=" + id + " rel='tooltip' title='" + this.title +"' data-placement=top class='img-rounded coverThumbnail' src='" + this.cover + "'>");
+		thumbnail = $("<img id='thumbnail" + id + "' num=" + id + " rel='tooltip' title='" + this.song_title +"' data-placement=top class='img-rounded coverThumbnail' src='" + this.cover_url + "'>");
 		thumbnail.tooltip();
 		thumbnail.appendTo("#currentPlaylist");
 		thumbnail.click(function() {
@@ -30,13 +30,13 @@ function playMusic() {
 	
 	if(0 < currentPlaylist.length && songNum < currentPlaylist.length) {
 		currentSong = currentPlaylist[songNum++];
-		$("#currentCover").attr("src", currentSong.cover);
+		$("#currentCover").attr("src", currentSong.cover_url);
 		player = document.getElementById("audioPlayer");
-		player.setAttribute("src",currentSong.audio);
+		player.setAttribute("src",currentSong.audio_url);
 
-		$("#currentTitle").html(currentSong.title);
-		$("#currentAlbum").html(currentSong.album);
-		$("#currentArtist").html(currentSong.artist);
+		$("#currentTitle").html(currentSong.song_title);
+		$("#currentAlbum").html(currentSong.album_title);
+		$("#currentArtist").html(currentSong.artist_name);
 		$("#playButton").html("<i class=icon-pause></i>");
 		renderPlaylist();
 		player.play();	
