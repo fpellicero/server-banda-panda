@@ -2,8 +2,6 @@ ServerBandaPanda::Application.routes.draw do
 
   match 'songs/search' => 'songs#search'
 
-  resources :songs, :albums, :artists
-
   devise_for :users, :controllers => { :sessions => "user/sessions"}
 
   root :to => "home#index"
