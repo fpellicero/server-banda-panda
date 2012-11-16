@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BandaPanda</title>
+    <!-- Fulla d'estil de bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fulla d'estils propia -->
+    <link href="/css/styles.css" rel="stylesheet">
+    <!-- Importem jQuery -->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+    <!-- Scripts de bootstrap -->
+    <script src="/js/bootstrap.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="/css/bootstrap-responsive.css" rel="stylesheet">
+  </head>
+  <body>
+    
+    <div class="container">    
+        <!-- Pantalla de Login -->
+      <div class="span4 offset4 login hidden-phone">
+        <center>
+        	<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+			  
+			  <img src="/img/logo.png">
+			  <div class="well well-large">
+			  	<input name="user[email]" type="email" placeholder="Email"><br>
+				<input name="user[password]" type="password" placeholder="Password"><br>
+				<input name="user[password_confirmation]" type="password" placeholder="Confirm Password"><br>
+	            <input type="submit" value="Sign up!" class="btn btn-primary">
+			  </div>
+			<% end %>              
+        </center>
+      </div>
+
+      <div class="span4 offset4 login visible-phone">
+        <center>
+        	<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+			  
+			  <img src="/img/logo.png">
+			  <div class="well well-large">
+			  	<input name="user[email]" type="email" placeholder="Email"><br>
+				<input name="user[password]" type="password" placeholder="Password"><br>
+				<input name="user[password_confirmation]" type="password" placeholder="Confirm Password"><br>
+	            <input type="submit" value="Sign up!" class="btn btn-primary">
+			  </div>
+			<% end %>              
+        </center>
+      </div>
+    </div>
