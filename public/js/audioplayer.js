@@ -31,9 +31,9 @@ function playMusic() {
 	
 	if(0 < currentPlaylist.length && songNum < currentPlaylist.length) {
 		currentSong = currentPlaylist[songNum++];
-		$("#currentCover").attr("src", "http://bandapanda.comlu.com/" + currentSong.cover_url);
+		$("#currentCover").attr("src", "http://bandapanda.comlu.com" + currentSong.cover_url);
 		player = document.getElementById("audioPlayer");
-		player.setAttribute("src","http://bandapanda.comlu.com/" +  currentSong.audio_url);
+		player.setAttribute("src","http://bandapanda.comlu.com" +  currentSong.audio_url);
 
 		$("#currentTitle").html(currentSong.song_title);
 		$("#currentAlbum").html(currentSong.album_title);
@@ -42,7 +42,7 @@ function playMusic() {
 		renderPlaylist();
 		player.play();	
 	}else {
-		$("#currentCover").attr("src", "/covers/noCover.png");
+		$("#currentCover").attr("src", "http://bandapanda.comlu.com/covers/noCover.png");
 		currentSong = 0;
 		player = document.getElementById("audioPlayer");
 		player.setAttribute("src","");

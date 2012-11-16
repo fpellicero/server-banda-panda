@@ -17,11 +17,12 @@
     <script src="js/login.js"></script>
     <script src="js/musicSearch.js"></script>
     <script src="js/audioplayer.js"></script>
+    <script src="js/layoutNavigation.js"></script>
   </head>
   <body>
     
+    <!-- Pantalla de Login -->
     <div class="container">    
-        <!-- Pantalla de Login -->
       <div class="span4 offset4 login">
         <center>
           <form id="login" action="/users/sign_in.json">
@@ -30,45 +31,50 @@
               <div class="alert alert-error hidden"><strong>HOLY PANDA!<br></strong>User or password wrong!</div>
               <input name="email" type="email" placeholder="Email">
               <input name="pass" type="password" placeholder="Password">
-              <input type="submit" value="Sign in!" class="btn btn-primary">
+              <input type="submit" value="Sign in!" class="btn btn-primary"><br><br>
+              Don't have an account? <a href="/users/sign_up">Sign up now!</a>
             </div>
           </form>
         </center>
       </div>
-    </div>
-        <!-- Fi pantalla de Login -->
+    </div><!-- Fi pantalla de Login -->
 
         <!-- Layout per defecte -->
-        <!-- Navbar Superior -->
     <div id="layout" class="container-fluid hidden" style="height: 100%">
+
+       <!-- Navbar Superior -->
         <div class="row-fluid">
           <div id="test" class="navbar">
             <div class="navbar-inner">
-              <a class="brand" href="#">Title</a>
+              <a class="brand" href="#">BandaPanda</a>
               <ul class="nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Link</a></li>
-                <li><a href="#">Link</a></li>
+                <li id="searchMusicNavLink" class="active"><a href="#" >Search Music</a></li>
+                <li id="editProfileNavLink"><a href="#" >Edit Profile</a></li>
               </ul>
             </div>
           </div>
-        </div>
+        </div><!-- / Navbar Superior -->
 
-        <!-- Navbar esquerre -->
+
+        <!-- Fila principal -->
         <div class="row-fluid" style="height: 70%">
+
+          <!-- Navbar esquerre -->
           <div class="well span3">
             <ul class="nav nav-list">
               <li class="nav-header">Playlists</li>
               <li><a href="#">...</a></li>
               <li><a href="#">...</a></li>
             </ul>
-          </div>
+          </div><!-- Navbar Esquerre -->
+
 
           <!-- Main content -->
           <div id="main-content" class="well span9" style="height: 100%">
             
 
-            <div class="row" style="margin: 10px; height: 100%">
+            <!-- Search music window -->
+            <div id="searchMusicWindow" class="row" style="margin: 10px; height: 100%">
               <form id="searchForm" action="" class="form-search pull-right">
                 <div class="input-append">
                   <input type="text" class="search-query">
@@ -103,20 +109,37 @@
                   </tbody>
                 </table>
               </div>
-            </div>
+            </div><!-- / Search Music Window -->
+
+            <!-- Edit user profile window -->
+            <div id="editProfileWindow" class="hidden">
+              <form>
+                <label>New e-mail:<label>
+                <input name="email" type="email">
+                <label>New password:</label>
+                <input name="pass" type="password">
+                <label>Confirm password:</label>
+                <input name="confirmPass" type="password">
+                <label>Current password (we need it to confirm your changes)</label>
+                <input name="currentPassword" type="password"><br>
+                <input type="submit" value="Update!" class="btn btn-primary">
+              </form>
+            </div><!-- Edit user profile window -->
             
-          </div>
 
-        </div>
+          </div><!-- Main Content -->
 
+        </div><!-- Fila principal -->
+
+
+        <!-- Footer -->     
         <div class="row-fluid" style="height: 20%">
 
-          <!-- Footer -->
           <div id="test" class="well span12" style="height: 85%">
             <div class="span2">
               <center>
                 <div class="span12" style="float: left">
-                  <img id="currentCover" class="img-rounded span9" src="/covers/noCover.png">
+                  <img id="currentCover" class="img-rounded span9" src="http://bandapanda.comlu.com/covers/noCover.png">
                 </div>
                 <div class="playerButtons">
                   <button id="prevButton" class="btn btn-mini"><i class="icon-fast-backward"></i></button>
@@ -136,7 +159,7 @@
             
           <audio id="audioPlayer"></audio>
           </div>
-        </div>
+        </div> <!-- / Footer -->
 
 
         </div>
