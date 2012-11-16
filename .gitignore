@@ -1,3 +1,4 @@
+*.dat
 *.rbc
 *.sassc
 .sass-cache
