@@ -1,5 +1,3 @@
-var currentSearch;
-
 (function () {
 	/*
 	var song1 = {
@@ -106,8 +104,6 @@ var currentSearch;
 			$("button.playButton",songElement).click(function() {
 				playNow(song);
 			})
-			songElement.attr("audio_url",song.audio_url);
-			songElement.attr("cover_url",song.cover_url);
 		}
 		console.log(songs);
 		$(songs).each(function() {
