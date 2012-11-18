@@ -1,6 +1,8 @@
 ServerBandaPanda::Application.routes.draw do
 
-  match 'songs/search' => 'songs#search'
+  get 'songs/search' => 'songs#search'
+
+  put 'users/:id' => 'users#modify'
 
   devise_for :users, :controllers => { :sessions => "user/sessions"}
 
