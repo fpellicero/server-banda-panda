@@ -72,15 +72,55 @@ class SongsController < ApplicationController
 
   #GET /songs/search?q=”...”&order=”...”&lim=”...”&offset=”...”
   def search
-    @songs = Song.where("title LIKE ?", "%#{params[:q]}%").limit(params[:lim]).offset(params[:offset]).order("title #{params[:order]}")
     results = Array.new()
-    @songs.each do |s|
-      result = {:song_id => s.id, :song_title => s.title, :album_id => s.album_id, :album_title => s.album.title,
-                   :artist_id => s.album.artist_id, :artist_name => s.album.artist.name, :audio_url => s.url, :cover_url => s.album.cover}
-      results.push(result)
+    lim = 15
+
+    if params[:lim] 
+      lim = params[:lim]
     end
+
+    if params[:order] && params[:order] != "ASC" && params[:order] != "DESC"
+      status = 400;
+
+    else
+      status = 200;
+      @songs = Song.where("title LIKE ?", "%#{params[:q]}%").limit(lim).offset(params[:offset]).order("title #{params[:order]}")
+      @albums = Album.where("title LIKE ?", "%#{params[:q]}%")
+      @artists = Artist.where("name LIKE ?", "%#{params[:q]}%")
+
+      @songs.each do |s|
+        result = {:song_id => s.id, :song_title => s.title, :album_id => s.album_id, :album_title => s.album.title,
+                     :artist_id => s.album.artist_id, :artist_name => s.album.artist.name, :audio_url => s.url, :cover_url => s.album.cover}
+        results.push(result)
+      end
+
+      Song.find_each do |s|
+        @albums.each do |a|
+          if s.album.title == a.title
+            result = {:song_id => s.id, :song_title => s.title, :album_id => s.album_id, :album_title => s.album.title,
+                     :artist_id => s.album.artist_id, :artist_name => s.album.artist.name, :audio_url => s.url, :cover_url => s.album.cover}
+            unless results.include?(result)
+              results.push(result)
+            end
+          end
+        end
+        @artists.each do |a|
+          if s.album.artist.name == a.name
+            result = {:song_id => s.id, :song_title => s.title, :album_id => s.album_id, :album_title => s.album.title,
+                     :artist_id => s.album.artist_id, :artist_name => s.album.artist.name, :audio_url => s.url, :cover_url => s.album.cover}
+            unless results.include?(result)
+              results.push(result)
+            end
+          end
+        end
+      end
+    end
+
     respond_to do |format|
-      format.json { render json: results }
+      if not format.json 
+        {:status => 406}
+      end
+      format.json { render json: results, :status => status }
     end
   end
 end
