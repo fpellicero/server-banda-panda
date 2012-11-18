@@ -1,7 +1,8 @@
-(function() {
+
 	function showEditProfile(event) {
-		//event.preventDefault();
+		event.preventDefault();
 		$("#searchMusicWindow").addClass("hidden");
+		$("#playlistsWindow").addClass("hidden")
 		$("#editProfileWindow").removeClass("hidden");
 
 		$("#searchMusicNavLink").removeClass("active");
@@ -10,8 +11,9 @@
 	}
 
 	function showMusicSearch(event) {
-		//event.preventDefault();
+		event.preventDefault();
 		$("#editProfileWindow").addClass("hidden");
+		$("#playlistsWindow").addClass("hidden")
 		$("#searchMusicWindow").removeClass("hidden");
 
 		$("#editProfileNavLink").removeClass("active");
@@ -19,8 +21,25 @@
 
 	}
 
+	function showPlaylist() {
+		event.preventDefault();
+		$("#editProfileWindow").addClass("hidden");
+		$("#searchMusicWindow").addClass("hidden");
+		$("#playlistsWindow").removeClass("hidden");
+
+		$("#editProfileNavLink").removeClass("active");
+		$("#searchMusicNavLink").removeClass("active");
+		renderPlaylist();
+	}
+
+	function loadContent() {
+		getPlaylists();
+	}
+
+(function() {
 	$(document).ready(function() {
 		$("#searchMusicNavLink").click(showMusicSearch);
 		$("#editProfileNavLink").click(showEditProfile);
+
 	})
 })();

@@ -13,6 +13,17 @@ html {
 	z-index: -10;
 }
 
+.contentWindow {
+	margin: 10px;
+	height: 100%;
+}
+
+.contentTableWrapper {
+	height: 80%;
+	overflow-y: scroll; 
+	clear: both;
+}
+
 #currentCover {
 	margin-top: -25%;
 	float: left;
@@ -52,5 +63,12 @@ html {
 
 .currentSongThumbnail {
 	box-shadow: 0px 0px 3px 3px #08C;
+}
+
+#playlists {
+	height: 90%;
+	overflow-x: hidden;
+	overflow-y: scroll; 
+}
 }
 

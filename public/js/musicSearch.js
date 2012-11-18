@@ -1,85 +1,14 @@
 (function () {
-	/*
-	var song1 = {
-		title: "American Slang",
-		album: "Handwritten",
-		artist: "The Gaslight Anthem",
-		audio: "/audio/1.mp3",
-		cover: "/covers/1.jpg"
-	};
-
-	var song2 = {
-		title: "Stay Lucky",
-		album: "Handwritten",
-		artist: "The Gaslight Anthem",
-		audio: "/audio/2.mp3",
-		cover: "/covers/1.jpg"
-	};
-
-	var song3 = {
-		title: "Bring it On",
-		album: "Handwritten",
-		artist: "The Gaslight Anthem",
-		audio: "/audio/3.mp3",
-		cover: "/covers/1.jpg"
-	};
-
-	var song4 = {
-		title: "The Diamond Church Street Choir",
-		album: "Handwritten",
-		artist: "The Gaslight Anthem",
-		audio: "/audio/4.mp3",
-		cover: "/covers/1.jpg"
-	};
-
-	var song5 = {
-		title: "The Queen of Lower Chelsea",
-		album: "Handwritten",
-		artist: "The Gaslight Anthem",
-		audio: "/audio/5.mp3",
-		cover: "/covers/1.jpg"
-	};
-
-	var song6 = {
-		title: "Orphans",
-		album: "Handwritten",
-		artist: "The Gaslight Anthem",
-		audio: "/audio/6.mp3",
-		cover: "/covers/1.jpg"
-	};
-
-	var song7 = {
-		title: "A Flight and a Crash",
-		album: "A Flight and a Crash",
-		artist: "Hot Water Music",
-		audio: "/audio/7.mp3",
-		cover: "/covers/2.jpg"
-	};
-
-	var song8 = {
-		title: "Old Rules",
-		album: "A Flight and a Crash",
-		artist: "Hot Water Music",
-		audio: "/audio/8.mp3",
-		cover: "/covers/2.jpg"
-	};
-
-	var song9 = {
-		title: "She Takes it so Well",
-		album: "A Flight and a Crash",
-		artist: "Hot Water Music",
-		audio: "/audio/9.mp3",
-		cover: "/covers/2.jpg"
-	};
-	*/
 	var songs = [];
 
 	function search(event) {
 		event.preventDefault();
 		query = $("#searchForm input").val();
+		
 		$.ajax({
-        url: "/songs/search.json?q=" + query,
+        url: "/songs/search.json",
         headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
+        data: { "q": query },
         success: function(data,textStatus,jqXHR){
           	songs = data;
             printSongs();

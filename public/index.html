@@ -13,10 +13,11 @@
     <!-- Scripts de bootstrap -->
     <script src="js/bootstrap.min.js"></script>
 
-    <!-- Script de login -->
+    <!-- Scripts -->
     <script src="js/login.js"></script>
     <script src="js/musicSearch.js"></script>
     <script src="js/audioplayer.js"></script>
+    <script src="js/playlists.js"></script>
     <script src="js/layoutNavigation.js"></script>
   </head>
   <body>
@@ -60,12 +61,17 @@
         <div class="row-fluid" style="height: 70%">
 
           <!-- Navbar esquerre -->
-          <div class="well span3">
-            <ul class="nav nav-list">
+          <div class="well span3" style="height: 95%">
+            <ul id="playlists" class="nav nav-list" >
               <li class="nav-header">Playlists</li>
-              <li><a href="#">...</a></li>
-              <li><a href="#">...</a></li>
+              <li id="playlist-Template" class="hidden"><a href="#"></a></li>
+              <div id="navbarPlaylists">
+                
+              </div>
             </ul>
+            <form class>
+              <input class="span8" type="text" placeholder="New playlist...">
+            </form>
           </div><!-- Navbar Esquerre -->
 
 
@@ -74,7 +80,7 @@
             
 
             <!-- Search music window -->
-            <div id="searchMusicWindow" class="row" style="margin: 10px; height: 100%">
+            <div id="searchMusicWindow" class="row contentWindow">
               <form id="searchForm" action="" class="form-search pull-right">
                 <div class="input-append">
                   <input type="text" class="search-query">
@@ -83,10 +89,10 @@
               </form>
               <ul class="nav nav-pills">
                 <li id="songTab"><a href="#">Songs</a></li>
-                <li><a href="#">Albums</a></li>
-                <li><a href="#">Artists</a></li>
+                <li id="albumTab"><a href="#">Albums</a></li>
+                <li id="artistTab"><a href="#">Artists</a></li>
               </ul>
-              <div style="height:80%; overflow-y: scroll">
+              <div class="contentTableWrapper">
                 <table class="table">
                   <thead>
                     <tr>
@@ -104,15 +110,13 @@
                       <button class="btn btn-mini playButton"><i class="icon-play"></i></button>
                     </td>
                   </tr>
-                  <tbody id="resultSongs">
-                    
-                  </tbody>
+                  <tbody id="resultSongs"></tbody>
                 </table>
               </div>
             </div><!-- / Search Music Window -->
 
             <!-- Edit user profile window -->
-            <div id="editProfileWindow" class="hidden">
+            <div id="editProfileWindow" class="hidden contentWindow">
               <form>
                 <label>New e-mail:<label>
                 <input name="email" type="email">
@@ -125,6 +129,38 @@
                 <input type="submit" value="Update!" class="btn btn-primary">
               </form>
             </div><!-- Edit user profile window -->
+
+            <!-- Show playlist window -->
+            <div id="playlistsWindow" class="hidden contentWindow">
+              <h2 class="pull-left">Playlist Name</h2>
+              <div class="pull-right">
+                <button id="playPlaylistButton" class="btn btn-primary">Play</button>
+                <button id="addPlaylistToCurrentButton" class="btn">Add to current</button>
+                <button id="deletePlaylistButton" class="btn btn-danger">Delete</button>
+              </div>
+              <div class="contentTableWrapper">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Album</th>
+                      <th>Artist</th>
+                    </tr>
+                  </thead>
+                  <tr id="songPlaylist-Template" class="hidden">
+                    <td class="songTitle">Title</td>
+                    <td class="albumTitle">Album</td>
+                    <td class="artistName">Artist</td>
+                    <td class="buttons">
+                      <button class="btn btn-mini addButton"><i class="icon-plus-sign"></i></button>
+                      <button class="btn btn-mini playButton"><i class="icon-play"></i></button>
+                      <button class="btn btn-mini deleteButton"><i class="icon-remove"></i></button>
+                    </td>
+                  </tr>
+                  <tbody id="playlistSongs"></tbody>
+                </table>
+              </div>
+            </div><!-- Show playlist window -->
             
 
           </div><!-- Main Content -->

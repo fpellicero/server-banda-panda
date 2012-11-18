@@ -27,6 +27,7 @@ var loggedUser;
 			$(".login").fadeToggle(function() {
 				$('#layout').fadeToggle();
 				$('#layout').removeClass("hidden");
+				loadContent();
 			});
 		})
 

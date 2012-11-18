@@ -1,12 +1,13 @@
 var currentPlaylist = [];
 var songNum = 0;
+var host = "";
 
 function renderPlaylist() {
 	$("#currentPlaylist").empty();
 	var i = 0;
 	$(currentPlaylist).each(function() {
 		id = i++;
-		thumbnail = $("<img id='thumbnail" + id + "' num=" + id + " rel='tooltip' title='" + this.song_title +"' data-placement=top class='img-rounded coverThumbnail' src='http://bandapanda.comlu.com/" + this.cover_url + "'>");
+		thumbnail = $("<img id='thumbnail" + id + "' num=" + id + " rel='tooltip' title='" + this.song_title +"' data-placement=top class='img-rounded coverThumbnail' src='" + host + this.cover_url + "'>");
 		thumbnail.tooltip();
 		thumbnail.appendTo("#currentPlaylist");
 		thumbnail.click(function() {
@@ -31,9 +32,9 @@ function playMusic() {
 	
 	if(0 < currentPlaylist.length && songNum < currentPlaylist.length) {
 		currentSong = currentPlaylist[songNum++];
-		$("#currentCover").attr("src", "http://bandapanda.comlu.com" + currentSong.cover_url);
+		$("#currentCover").attr("src", host + currentSong.cover_url);
 		player = document.getElementById("audioPlayer");
-		player.setAttribute("src","http://bandapanda.comlu.com" +  currentSong.audio_url);
+		player.setAttribute("src",host +  currentSong.audio_url);
 
 		$("#currentTitle").html(currentSong.song_title);
 		$("#currentAlbum").html(currentSong.album_title);
@@ -63,6 +64,17 @@ function addToCurrentPlaylist(song) {
 function playNow(song) {
 	currentPlaylist.splice(songNum, 0, song);
 	playMusic();
+}
+
+function playPlaylist(playlist) {
+	currentPlaylist = playlist;
+	songNum = 0;
+	playMusic();
+}
+
+function addPlaylistToCurrent(playlist) {
+	currentPlaylist = currentPlaylist.concat(playlist);
+	renderPlaylist();
 }
 
 $(document).ready(function() {
