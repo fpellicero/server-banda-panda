@@ -28,10 +28,10 @@
 			$("td.albumTitle",songElement).text(song.album_title);
 			$("td.artistName",songElement).text(song.artist_name);
 			$("button.addButton",songElement).click(function() {
-				addToCurrentPlaylist(song);
+				audioPlayer.addSongToCurrent(song);
 			});
 			$("button.playButton",songElement).click(function() {
-				playNow(song);
+				audioPlayer.playSongNow(song);
 			})
 		}
 		console.log(songs);
@@ -42,7 +42,6 @@
 
 	$(document).ready(function() {
 		// Bind dels triggers
-		console.log("Searchform")
 		$("#searchForm").submit(search);
 	})
 

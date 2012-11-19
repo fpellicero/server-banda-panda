@@ -103,7 +103,7 @@ function getPlaylists() {
 	})
 }
 
-function renderPlaylist() {
+function renderSelectedPlaylist() {
 	// Funcio que pintarà les cançons
 	function addSong(song) {
 		var songElement = $("#songPlaylist-Template").clone().attr("id","").appendTo("#playlistSongs").removeClass("hidden");
@@ -111,10 +111,10 @@ function renderPlaylist() {
 		$("td.albumTitle",songElement).text(song.album_title);
 		$("td.artistName",songElement).text(song.artist_name);
 		$("button.addButton",songElement).click(function() {
-			addToCurrentPlaylist(song);
+			audioPlayer.addSongToCurrent(song);
 		});
 		$("button.playButton",songElement).click(function() {
-			playNow(song);
+			audioPlayer.playSongNow(song);
 		})	
 	}
 
@@ -128,9 +128,9 @@ function renderPlaylist() {
 $(document).ready(function() {
 
 	$("#playPlaylistButton").click(function() {
-		playPlaylist(playlist.songs);
+		audioPlayer.playPlaylistNow(selectedPlaylist.songs);
 	});
 	$("#addPlaylistToCurrentButton").click(function() {
-		addPlaylistToCurrent(playlist.songs);
+		audioPlayer.addPlaylistToCurrent(selectedPlaylist.songs);
 	});
 }) 

@@ -29,7 +29,7 @@
 
 		$("#editProfileNavLink").removeClass("active");
 		$("#searchMusicNavLink").removeClass("active");
-		renderPlaylist();
+		renderSelectedPlaylist();
 	}
 
 	function loadContent() {
