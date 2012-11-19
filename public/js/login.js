@@ -5,7 +5,6 @@ var loggedUser;
 // Funcio anònima per a no embrutar l'espai de noms
 (function() {
 
-
 	function log_in (event) {
 		// Aturem l'acció per defecte del form
 		event.preventDefault();
@@ -27,7 +26,7 @@ var loggedUser;
 			$(".login").fadeToggle(function() {
 				$('#layout').fadeToggle();
 				$('#layout').removeClass("hidden");
-				loadContent();
+				mainLayout.loadContent();
 			});
 		})
 

@@ -1,5 +1,7 @@
 
-	function showEditProfile(event) {
+	var mainLayout = new Object();
+
+	mainLayout.showEditProfile = function (event) {
 		event.preventDefault();
 		$("#searchMusicWindow").addClass("hidden");
 		$("#playlistsWindow").addClass("hidden")
@@ -8,9 +10,9 @@
 		$("#searchMusicNavLink").removeClass("active");
 		$("#editProfileNavLink").addClass("active");
 
-	}
+	};
 
-	function showMusicSearch(event) {
+	mainLayout.showMusicSearch = function (event) {
 		event.preventDefault();
 		$("#editProfileWindow").addClass("hidden");
 		$("#playlistsWindow").addClass("hidden")
@@ -19,9 +21,9 @@
 		$("#editProfileNavLink").removeClass("active");
 		$("#searchMusicNavLink").addClass("active");
 
-	}
+	};
 
-	function showPlaylist() {
+	mainLayout.showPlaylist = function () {
 		event.preventDefault();
 		$("#editProfileWindow").addClass("hidden");
 		$("#searchMusicWindow").addClass("hidden");
@@ -29,17 +31,17 @@
 
 		$("#editProfileNavLink").removeClass("active");
 		$("#searchMusicNavLink").removeClass("active");
-		renderSelectedPlaylist();
-	}
+		playlistsInterface.renderSelectedPlaylist();
+	};
 
-	function loadContent() {
-		getPlaylists();
-	}
+	mainLayout.loadContent = function () {
+		playlistsInterface.getPlaylists();
+	};
 
 (function() {
 	$(document).ready(function() {
-		$("#searchMusicNavLink").click(showMusicSearch);
-		$("#editProfileNavLink").click(showEditProfile);
+		$("#searchMusicNavLink").click(mainLayout.showMusicSearch);
+		$("#editProfileNavLink").click(mainLayout.showEditProfile);
 
 	})
 })();
