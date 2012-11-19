@@ -41,12 +41,18 @@ var mainLayout = new Object();
 		$("#showAlbumWindow").removeClass("hidden");
 	}
 
+	mainLayout.showArtist = function(artist) {
+		hideAllWindows();
+		$("#showArtistWindow").removeClass("hidden");
+	}
+
 	/* Funcions auxiliars */
 	function hideAllWindows() {
 		$("#searchMusicWindow").addClass("hidden");
 		$("#editProfileWindow").addClass("hidden");
 		$("#playlistsWindow").addClass("hidden");
 		$("#showAlbumWindow").addClass("hidden");
+		$("#showArtistWindow").addClass("hidden");
 
 		$("#searchMusicNavLink").removeClass("active");
 		$("#editProfileNavLink").removeClass("active");

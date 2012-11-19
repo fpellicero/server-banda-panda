@@ -24,6 +24,14 @@ html {
 	clear: both;
 }
 
+td.albumTitle, td.artistName {
+	cursor: pointer;
+}
+
+td.albumTitle:hover, td.artistName:hover {
+	text-decoration: underline;
+}
+
 #currentCover {
 	height: 100%;
 	box-shadow: 0px 0px 50px 5px black;
@@ -32,7 +40,6 @@ html {
 #currentCoverWrapper {
 	position: relative;
 	bottom: 115%;	
-	margin-left: 0px;
 }
 
 .playerButtons {

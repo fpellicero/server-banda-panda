@@ -26,7 +26,14 @@
 			var songElement = $("#songResult-Template").clone().attr("id","").appendTo("#resultSongs").removeClass("hidden");
 			$("td.songTitle",songElement).text(song.song_title);
 			$("td.albumTitle",songElement).text(song.album_title);
+			$("td.albumTitle",songElement).click(function() {
+				mainLayout.showAlbum();
+			});			
 			$("td.artistName",songElement).text(song.artist_name);
+			$("td.artistName",songElement).click(function() {
+				mainLayout.showArtist();
+			});
+
 			$("button.addButton",songElement).click(function() {
 				audioPlayer.addSongToCurrent(song);
 			});

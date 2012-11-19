@@ -65,11 +65,9 @@
             <ul id="playlists" class="nav nav-list" >
               <li class="nav-header">Playlists</li>
               <li id="playlist-Template" class="hidden"><a href="#"></a></li>
-              <div id="navbarPlaylists">
-                
-              </div>
+              <div id="navbarPlaylists"></div>
             </ul>
-            <form class>
+            <form id="createPlaylistForm" action="">
               <input class="span8" type="text" placeholder="New playlist...">
             </form>
           </div><!-- Navbar Esquerre -->
@@ -80,7 +78,7 @@
             
 
             <!-- Search music window -->
-            <div id="searchMusicWindow" class="hidden row contentWindow">
+            <div id="searchMusicWindow" class="row contentWindow">
               <form id="searchForm" action="" class="form-search pull-right">
                 <div class="input-append">
                   <input type="text" class="search-query">
@@ -117,16 +115,36 @@
 
             <!-- Edit user profile window -->
             <div id="editProfileWindow" class="hidden contentWindow">
-              <form>
-                <label>New e-mail:<label>
-                <input name="email" type="email">
-                <label>New password:</label>
-                <input name="pass" type="password">
-                <label>Confirm password:</label>
-                <input name="confirmPass" type="password">
-                <label>Current password (we need it to confirm your changes)</label>
-                <input name="currentPassword" type="password"><br>
-                <input type="submit" value="Update!" class="btn btn-primary">
+              <form action="" class="form-horizontal">
+                  <div class="control-group">
+                    <label class="control-label">New e-mail:</label>
+                    <div class="controls">
+                      <input name="email" type="email">
+                    </div> 
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label">New password:</label>
+                    <div class="controls">
+                      <input name="pass" type="password">
+                    </div> 
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label">Confirm password:</label>
+                    <div class="controls">
+                      <input name="confirmPass" type="password">
+                    </div> 
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label">Current password:</label>
+                    <div class="controls">
+                      <input name="currentPassword" type="password">
+                    </div> 
+                  </div>
+                  <div class="control-group">
+                    <div class="controls">
+                      <input type="submit" value="Update!" class="btn btn-primary">
+                    </div>
+                  </div>
               </form>
             </div><!-- Edit user profile window -->
 
@@ -162,21 +180,22 @@
               </div>
             </div><!-- Show playlist window -->
 
+
             <!-- Show Album Window -->
             <div id="showAlbumWindow" class="hidden contentWindow">
               <div class="row-fluid">
                 <div class="span2">
                   <img src="http://bandapanda.comlu.com/covers/noCover.png">
                 </div>
-                <div class="span2">
+                <div class="span8">
                   <b>Title: </b><br>
                   <b>Artist: </b><br>
                   <b>Label: </b><br>
                   <b>Year: </b><br>
                 </div>
-                <div class="span2 pull-right">
-                  <button class="btn">Play Album</button>
-                  <button class="btn">Add to Current</button>
+                <div class="span2">
+                  <p><button class="btn btn-primary"><i class="icon-play icon-white"></i> Play Album</button></p>
+                  <p><button class="btn">Add to Current</button></p>
                 </div>                
               </div>
               <hr>
@@ -203,6 +222,47 @@
                 </div>
               </div>
             </div><!-- Show Album Window -->
+
+            <!-- Show Artist Window -->
+            <div id="showArtistWindow" class="hidden contentWindow">
+              <div class="row-fluid">
+                <div class="span2">
+                  <img src="http://bandapanda.comlu.com/covers/noCover.png">
+                </div>
+                <div class="span8">
+                  <h2>Artist Name </h2>
+                </div>
+                <div class="span2">
+                  <p><button class="btn btn-primary"><i class="icon-play icon-white"></i>Play Artist</button></p>
+                  <p><button class="btn">Add to Current</button></p>
+                </div>                
+              </div>
+              <hr>
+              <div class="row-fluid" style="height: 65%">
+                <div class="contentTableWrapper">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Title</th>
+                        <th>Year</th>
+                      </tr>
+                    </thead>
+                    <tr id="artistAlbum-Template" class="hidden">
+                      <td class="songTrack">Title</td>
+                      <td class="songTitle">Album</td>
+                      <td class="buttons">
+                        <button class="btn btn-mini addButton"><i class="icon-plus-sign"></i></button>
+                        <button class="btn btn-mini playButton"><i class="icon-play"></i></button>
+                      </td>
+                    </tr>
+                    <tbody id="artistAlbums"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div><!-- Show Artist Window -->
+
+
             
 
           </div><!-- Main Content -->
