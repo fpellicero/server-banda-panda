@@ -80,7 +80,7 @@
             
 
             <!-- Search music window -->
-            <div id="searchMusicWindow" class="row contentWindow">
+            <div id="searchMusicWindow" class="hidden row contentWindow">
               <form id="searchForm" action="" class="form-search pull-right">
                 <div class="input-append">
                   <input type="text" class="search-query">
@@ -161,6 +161,48 @@
                 </table>
               </div>
             </div><!-- Show playlist window -->
+
+            <!-- Show Album Window -->
+            <div id="showAlbumWindow" class="hidden contentWindow">
+              <div class="row-fluid">
+                <div class="span2">
+                  <img src="http://bandapanda.comlu.com/covers/noCover.png">
+                </div>
+                <div class="span2">
+                  <b>Title: </b><br>
+                  <b>Artist: </b><br>
+                  <b>Label: </b><br>
+                  <b>Year: </b><br>
+                </div>
+                <div class="span2 pull-right">
+                  <button class="btn">Play Album</button>
+                  <button class="btn">Add to Current</button>
+                </div>                
+              </div>
+              <hr>
+              <div class="row-fluid" style="height: 65%">
+                <div class="contentTableWrapper">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Track</th>
+                        <th>Title</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tr id="songAlbum-Template" class="hidden">
+                      <td class="songTrack">Title</td>
+                      <td class="songTitle">Album</td>
+                      <td class="buttons">
+                        <button class="btn btn-mini addButton"><i class="icon-plus-sign"></i></button>
+                        <button class="btn btn-mini playButton"><i class="icon-play"></i></button>
+                      </td>
+                    </tr>
+                    <tbody id="albumSongs"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div><!-- Show Album Window -->
             
 
           </div><!-- Main Content -->
@@ -171,11 +213,24 @@
         <!-- Footer -->     
         <div class="row-fluid" style="height: 20%">
 
-          <div id="test" class="well span12" style="height: 85%">
-            <div class="span2">
+          <div id="footer" class="well span12" style="height: 85%">
+            
+            <div id="songInfo" class="span3 offset2">
+              <strong>Title: </strong><span id="currentTitle"></span><br>
+              <strong>Album: </strong><span id="currentAlbum"></span><br>
+              <strong>Artist: </strong><span id="currentArtist"></span><br>
+            </div>
+            <div id="currentPlaylistWrapper" style="overflow: hidden">
+              <div id="currentPlaylist"></div> 
+            </div>  
+              
+            <audio id="audioPlayer"></audio>
+            </div>
+
+            <div id="currentCoverWrapper" class="span2">
               <center>
-                <div class="span12" style="float: left">
-                  <img id="currentCover" class="img-rounded span9" src="http://bandapanda.comlu.com/covers/noCover.png">
+                <div class="span12">
+                  <img id="currentCover" class="img-rounded" src="http://bandapanda.comlu.com/covers/noCover.png">
                 </div>
                 <div class="playerButtons">
                   <button id="prevButton" class="btn btn-mini"><i class="icon-fast-backward"></i></button>
@@ -183,17 +238,6 @@
                   <button id="nextButton" class="btn btn-mini"><i class="icon-fast-forward"></i></button>
                 </div>
               </center>
-          </div>
-          <div id="songInfo" class="span3">
-            <strong>Title: </strong><span id="currentTitle"></span><br>
-            <strong>Album: </strong><span id="currentAlbum"></span><br>
-            <strong>Artist: </strong><span id="currentArtist"></span><br>
-          </div>
-          <div id="currentPlaylistWrapper" style="overflow: hidden">
-            <div id="currentPlaylist"></div> 
-          </div>  
-            
-          <audio id="audioPlayer"></audio>
           </div>
         </div> <!-- / Footer -->
 

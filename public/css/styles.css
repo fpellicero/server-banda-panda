@@ -25,26 +25,28 @@ html {
 }
 
 #currentCover {
-	margin-top: -25%;
-	float: left;
+	height: 100%;
 	box-shadow: 0px 0px 50px 5px black;
 }
 
-.playerButtons {
-	clear: both;
-	margin-left: -25%;
+#currentCoverWrapper {
 	position: relative;
-	top: -16px;
+	bottom: 115%;	
+	margin-left: 0px;
+}
 
+.playerButtons {
+	position: relative;
+	top: -25px;
+}
+
+#footer {
+	z-index: -50;
 }
 
 #currentPlaylist {
 	height: 100%;
 	width: 100000px;
-}
-
-#songInfo {
-	margin-left: -2%;
 }
 
 #currentPlaylistWrapper {
