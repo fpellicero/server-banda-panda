@@ -10,29 +10,50 @@ html {
 
 .hidden {
 	display: none;
+	z-index: -10;
+}
+
+.contentWindow {
+	margin: 10px;
+	height: 100%;
+}
+
+.contentTableWrapper {
+	height: 80%;
+	overflow-y: scroll; 
+	clear: both;
+}
+
+td.albumTitle, td.artistName {
+	cursor: pointer;
+}
+
+td.albumTitle:hover, td.artistName:hover {
+	text-decoration: underline;
 }
 
 #currentCover {
-	margin-top: -25%;
-	float: left;
+	height: 100%;
 	box-shadow: 0px 0px 50px 5px black;
 }
 
-.playerButtons {
-	clear: both;
-	margin-left: -25%;
+#currentCoverWrapper {
 	position: relative;
-	top: -16px;
+	bottom: 115%;	
+}
 
+.playerButtons {
+	position: relative;
+	top: -25px;
+}
+
+#footer {
+	z-index: -50;
 }
 
 #currentPlaylist {
 	height: 100%;
 	width: 100000px;
-}
-
-#songInfo {
-	margin-left: -2%;
 }
 
 #currentPlaylistWrapper {
@@ -51,5 +72,12 @@ html {
 
 .currentSongThumbnail {
 	box-shadow: 0px 0px 3px 3px #08C;
+}
+
+#playlists {
+	height: 90%;
+	overflow-x: hidden;
+	overflow-y: scroll; 
+}
 }
 
