@@ -56,7 +56,7 @@ class AlbumsController < ApplicationController
 	    end
 
 		respond_to do |format|
-	  		if not format.json 
+	  		unless format.json 
 		        {:status => 406} #Nomes retorna Json
 		    end
 		    format.json { render json: filtered_results, :status => status }
