@@ -1,6 +1,8 @@
 ServerBandaPanda::Application.routes.draw do
 
   get 'songs/search' => 'songs#search'
+  get 'albums/search' => 'albums#search'
+  get 'artists/search' => 'artists#search'
 
   put 'users/:id' => 'users#modify'
 

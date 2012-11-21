@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   prepend_before_filter :get_auth_token
   # Abans d'executar res, autentiquem l'usuari
 
-  before_filter :authenticate_user!
+  #before_filter :authenticate_user!
   
   protect_from_forgery
 
