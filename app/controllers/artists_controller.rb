@@ -43,10 +43,11 @@ class ArtistsController < ApplicationController
 				results.push(result)
 			end
 
+
 			if order == "DESC" 
-		    	results.sort! {|x,y| y[:album_title].downcase <=> x[:album_title].downcase}
+		    	results.sort! {|x,y| y[:artist_name].downcase <=> x[:artist_name].downcase}
 		  	else
-		    	results.sort! {|x,y| x[:album_title].downcase <=> y[:album_title].downcase}
+		    	results.sort! {|x,y| x[:artist_name].downcase <=> y[:artist_name].downcase}
 		  	end
 
 		  	filtered_results = results[Integer(offset)..(Integer(offset)+Integer(lim)-1)] #Apliquem offsets i limits
