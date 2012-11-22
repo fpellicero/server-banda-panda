@@ -1,3 +1,6 @@
+/public/audio
+/public/covers
+*.dat
 *.rbc
 *.sassc
 .sass-cache
