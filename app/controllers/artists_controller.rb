@@ -39,7 +39,7 @@ class ArtistsController < ApplicationController
 			@artists = Artist.where("name LIKE ?", "%#{params[:q]}%")
 
 			@artists.each do |a|
-				result = {:artist_id => a.id, :artist_name => a.name, :artist_img_url => nil}
+				result = {:artist_id => a.id, :artist_name => a.name, :artist_img_url => a.img}
 				results.push(result)
 			end
 
@@ -81,7 +81,7 @@ class ArtistsController < ApplicationController
 	    		album = {:album_id => a.id, :album_title => a.title, :album_cover => a.cover}
 	    		albums.push(album)
 	    	end
-	    	result = {:artist_name => @artist.name, :artist_image => nil, :artist_info => nil, :artist_year => nil, :artist_albums => albums}
+	    	result = {:artist_name => @artist.name, :artist_image => @artist.img, :artist_info => nil, :artist_year => nil, :artist_albums => albums}
 		end
 
 		respond_to do |format|
