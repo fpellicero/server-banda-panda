@@ -104,7 +104,7 @@ class SongsController < ApplicationController
     end  
 
     #Si els params son correctes fem la cerca:
-    if status != 400
+    unless status == 400
       status = 200
       @songs = Song.where("title LIKE ?", "%#{params[:q]}%")
       @albums = Album.where("title LIKE ?", "%#{params[:q]}%")
@@ -145,7 +145,7 @@ class SongsController < ApplicationController
       end
 
       filtered_results = results[Integer(offset)..(Integer(offset)+Integer(lim)-1)] #Apliquem offsets i limits
-      if Integer(offset) >= results.size()
+      if Integer(offset) >= results.size() && Integer(offset) != 0
         status = 416 #Offset fora de arxiu
       elsif results[Integer(offset)+Integer(lim)]
         status = 206 #Partial Content
@@ -153,7 +153,7 @@ class SongsController < ApplicationController
     end
 
     respond_to do |format|
-      if not format.json 
+      unless format.json 
         {:status => 406} #Nomes retorna Json
       end
       format.json { render json: filtered_results, :status => status }
