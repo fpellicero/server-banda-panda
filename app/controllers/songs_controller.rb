@@ -110,33 +110,28 @@ class SongsController < ApplicationController
       @albums = Album.where("title LIKE ?", "%#{params[:q]}%")
       @artists = Artist.where("name LIKE ?", "%#{params[:q]}%")
 
+      @artists.each do |a| # Afegim albums que tenen la query a l'artist
+        a.album.each do |al|
+          unless @albums.include?(al)
+            @albums.push(al)
+          end
+        end
+      end
+
+      @albums.each do |a| # Afegim cancons que tenen query a l'album o a l'artista
+        a.song.each do |s|
+          unless @songs.include?(s)
+              @songs.push(s)
+          end
+        end
+      end
+
       @songs.each do |s| # Afegim cancons que tenen la query al titol
         result = {:song_id => s.id, :song_title => s.title, :album_id => s.album_id, :album_title => s.album.title,
                      :artist_id => s.album.artist_id, :artist_name => s.album.artist.name, :audio_url => s.url, :cover_url => s.album.cover}
         results.push(result)
       end
 
-      Song.find_each do |s| # Afegim cancons que tenen query a l'album
-        @albums.each do |a|
-          if s.album.title == a.title
-            result = {:song_id => s.id, :song_title => s.title, :album_id => s.album_id, :album_title => s.album.title,
-                     :artist_id => s.album.artist_id, :artist_name => s.album.artist.name, :audio_url => s.url, :cover_url => s.album.cover}
-            unless results.include?(result)
-              results.push(result)
-            end
-          end
-        end
-
-        @artists.each do |a| # Afegim cancon que tenen la query a l'artist
-          if s.album.artist.name == a.name
-            result = {:song_id => s.id, :song_title => s.title, :album_id => s.album_id, :album_title => s.album.title,
-                     :artist_id => s.album.artist_id, :artist_name => s.album.artist.name, :audio_url => s.url, :cover_url => s.album.cover}
-            unless results.include?(result)
-              results.push(result)
-            end
-          end
-        end
-      end
       #Ordenem els resultats:
       if order == "DESC" 
         results.sort! {|x,y| y[:song_title].downcase <=> x[:song_title].downcase}

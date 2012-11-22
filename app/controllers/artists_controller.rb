@@ -1,4 +1,6 @@
 class ArtistsController < ApplicationController
+
+	#GET /artists/search?q=”...”&order=”...”&lim=”...”&offset=”...”
 	def search
 		results = Array.new()
 	    lim = 10

@@ -1,4 +1,6 @@
 class AlbumsController < ApplicationController
+
+	 #GET /albums/search?q=”...”&order=”...”&lim=”...”&offset=”...”
 	def search
 		results = Array.new()
 	    lim = 5
@@ -60,6 +62,33 @@ class AlbumsController < ApplicationController
 		        {:status => 406} #Nomes retorna Json
 		    end
 		    format.json { render json: filtered_results, :status => status }
+		end
+	end
+
+	#{album_title, cover_url, artist_id, artist_name, album_genre, album_year, album_songs: [song_id, song_track, song_title, audio_url]* }
+	#GET /albums/{id}
+	def get
+		result = Array.new()
+		songs = Array.new()
+
+		if !Album.exists?(params[:id])
+			status = 404
+		else
+	    	status = 200
+	    	@album = Album.find(params[:id]);
+	    	@album.song.each do |s|
+	    		song = {:song_id => s.id, :song_track => nil, :song_title => s.title, :audio_url => s.url}
+	    		songs.push(song)
+	    	end
+	    	result = {:album_title => @album.title, :cover_url => @album.cover, :artist_id => @album.artist.id, :artist_name => @album.artist.name, 
+	    		:album_genre => nil, :album_year => nil, :album_songs => songs}
+		end
+
+	    respond_to do |format|
+	  		unless format.json 
+		        {:status => 406} #Nomes retorna Json
+		    end
+		    format.json { render json: result, :status => status }
 		end
 	end
 end

@@ -4,6 +4,8 @@ ServerBandaPanda::Application.routes.draw do
   get 'albums/search' => 'albums#search'
   get 'artists/search' => 'artists#search'
 
+  get 'albums/:id' => 'albums#get'
+
   put 'users/:id' => 'users#modify'
 
   devise_for :users, :controllers => { :sessions => "user/sessions"}
