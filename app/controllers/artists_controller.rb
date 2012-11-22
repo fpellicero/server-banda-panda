@@ -64,6 +64,32 @@ class ArtistsController < ApplicationController
 		    format.json { render json: filtered_results, :status => status }
 		end
 	end
+
+	#{artist_name, artist_image, artist_info, artist_year, artist_albums: [album_id, album_title, album_cover]* }
+	#GET /albums/{id}
+	def get
+		result = Array.new()
+		albums = Array.new()
+
+		if !Artist.exists?(params[:id])
+			status = 404
+		else
+			status = 200
+	    	@artist = Artist.find(params[:id]);
+	    	@artist.album.each do |a|
+	    		album = {:album_id => a.id, :album_title => a.title, :album_cover => a.cover}
+	    		albums.push(album)
+	    	end
+	    	result = {:artist_name => @artist.name, :artist_image => nil, :artist_info => nil, :artist_year => nil, :artist_albums => albums}
+		end
+
+		respond_to do |format|
+	  		unless format.json 
+		        {:status => 406} #Nomes retorna Json
+		    end
+		    format.json { render json: result, :status => status }
+		end
+	end
 end
 
 # Crida per comprovar si un string representa un enter:

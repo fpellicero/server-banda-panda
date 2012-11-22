@@ -5,6 +5,7 @@ ServerBandaPanda::Application.routes.draw do
   get 'artists/search' => 'artists#search'
 
   get 'albums/:id' => 'albums#get'
+  get 'artists/:id' => 'artists#get'
 
   put 'users/:id' => 'users#modify'
 
