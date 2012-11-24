@@ -30,8 +30,9 @@
             <img src="/img/logo.png">
             <div class="well well-large">
               <div class="alert alert-error hidden"><strong>HOLY PANDA!<br></strong>User or password wrong!</div>
-              <input name="email" type="email" placeholder="Email">
-              <input name="pass" type="password" placeholder="Password">
+              <input name="email" type="email" placeholder="Email"><br>
+              <input name="pass" type="password" placeholder="Password"><br>
+              <input type="checkbox" id="remember_me" style="align=middle"> Remember me!<br><br>
               <input type="submit" value="Sign in!" class="btn btn-primary"><br><br>
               Don't have an account? <a href="/users/sign_up">Sign up now!</a>
             </div>
@@ -90,7 +91,8 @@
                 <li id="albumTab"><a href="#">Albums</a></li>
                 <li id="artistTab"><a href="#">Artists</a></li>
               </ul>
-              <div class="contentTableWrapper">
+              <!-- Search Songs -->
+              <div id="searchSongsTable" class="contentTableWrapper">
                 <table class="table">
                   <thead>
                     <tr>
@@ -110,7 +112,26 @@
                   </tr>
                   <tbody id="resultSongs"></tbody>
                 </table>
-              </div>
+              </div><!-- Search songs -->
+
+              <!-- Search Albums -->
+              <div id="searchAlbumsTable" class="contentTableWrapper hidden">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Album</th>
+                      <th>Artist</th>
+                    </tr>
+                  </thead>
+                  <tr id="albumResult-Template" class="hidden">
+                    <td class="span2 albumCover"><img src=""></td>
+                    <td class="albumTitle">Album</td>
+                    <td class="artistName">Artist</td>
+                  </tr>
+                  <tbody id="resultAlbums"></tbody>
+                </table>
+              </div><!-- Search albums -->
             </div><!-- / Search Music Window -->
 
             <!-- Edit user profile window -->

@@ -24,7 +24,12 @@ html {
 	clear: both;
 }
 
-td.albumTitle, td.artistName {
+tbody tr:hover {
+	background: #08C;
+	color: white;
+}
+
+td.albumTitle, td.artistName, td.albumCover {
 	cursor: pointer;
 }
 
