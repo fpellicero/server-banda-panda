@@ -12,7 +12,7 @@ var audioPlayer = new Object();
 		var i = 0;
 		$(currentPlaylist).each(function() {
 			id = i++;
-			thumbnail = $("<img id='thumbnail" + id + "' num=" + id + " rel='tooltip' title='" + this.song_title +"' data-placement=top class='img-rounded coverThumbnail' src='" + host + this.cover_url + "'>");
+			thumbnail = $("<img id='thumbnail" + id + "' num=" + id + " rel='tooltip' title=\"" + this.song_title +"\" data-placement=top class='img-rounded coverThumbnail' src='" + host + this.cover_url + "'>");
 			thumbnail.tooltip();
 			thumbnail.appendTo("#currentPlaylist");
 			thumbnail.click(function() {

@@ -19,6 +19,8 @@
     <script src="js/audioplayer.js"></script>
     <script src="js/playlists.js"></script>
     <script src="js/layoutNavigation.js"></script>
+    <script src="js/albums.js"></script>
+    <script src="js/artists.js"></script>
   </head>
   <body>
     
@@ -132,6 +134,23 @@
                   <tbody id="resultAlbums"></tbody>
                 </table>
               </div><!-- Search albums -->
+
+              <!-- Search Artists -->
+               <div id="searchArtistsTable" class="contentTableWrapper hidden">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Artist</th>
+                    </tr>
+                  </thead>
+                  <tr id="artistResult-Template" class="hidden">
+                    <td class="span2 artistImg"><img src=""></td>
+                    <td class="artistName">Artist</td>
+                  </tr>
+                  <tbody id="resultArtists"></tbody>
+                </table>
+              </div><!-- Search albums -->
             </div><!-- / Search Music Window -->
 
             <!-- Edit user profile window -->
@@ -209,14 +228,12 @@
                   <img src="http://bandapanda.comlu.com/covers/noCover.png">
                 </div>
                 <div class="span8">
-                  <b>Title: </b><br>
-                  <b>Artist: </b><br>
-                  <b>Label: </b><br>
-                  <b>Year: </b><br>
+                  <b>Title: </b> <span class="title"></span><br>
+                  <b>Artist: </b><span class="artist"></span><br>
                 </div>
                 <div class="span2">
-                  <p><button class="btn btn-primary"><i class="icon-play icon-white"></i> Play Album</button></p>
-                  <p><button class="btn">Add to Current</button></p>
+                  <p><button class="btn btn-primary buttonPlay"><i class="icon-play icon-white"></i> Play Album</button></p>
+                  <p><button class="btn buttonAdd">Add to Current</button></p>
                 </div>                
               </div>
               <hr>
@@ -231,8 +248,8 @@
                       </tr>
                     </thead>
                     <tr id="songAlbum-Template" class="hidden">
-                      <td class="songTrack">Title</td>
-                      <td class="songTitle">Album</td>
+                      <td class="songTrack"></td>
+                      <td class="songTitle"></td>
                       <td class="buttons">
                         <button class="btn btn-mini addButton"><i class="icon-plus-sign"></i></button>
                         <button class="btn btn-mini playButton"><i class="icon-play"></i></button>
@@ -248,10 +265,10 @@
             <div id="showArtistWindow" class="hidden contentWindow">
               <div class="row-fluid">
                 <div class="span2">
-                  <img src="http://bandapanda.comlu.com/covers/noCover.png">
+                  <img id="artistPortrait" src="http://bandapanda.comlu.com/covers/noCover.png">
                 </div>
                 <div class="span8">
-                  <h2>Artist Name </h2>
+                  <h2><span class="artist_name"></span></h2>
                 </div>
                 <div class="span2">
                   <p><button class="btn btn-primary"><i class="icon-play icon-white"></i>Play Artist</button></p>
@@ -266,12 +283,11 @@
                       <tr>
                         <th></th>
                         <th>Title</th>
-                        <th>Year</th>
                       </tr>
                     </thead>
                     <tr id="artistAlbum-Template" class="hidden">
-                      <td class="songTrack">Title</td>
-                      <td class="songTitle">Album</td>
+                      <td class="span2 albumCover"><img src="" class="img-rounded"></td>
+                      <td class="albumTitle">Album</td>
                       <td class="buttons">
                         <button class="btn btn-mini addButton"><i class="icon-plus-sign"></i></button>
                         <button class="btn btn-mini playButton"><i class="icon-play"></i></button>

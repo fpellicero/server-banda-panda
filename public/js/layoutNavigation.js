@@ -35,15 +35,17 @@ var mainLayout = new Object();
 		playlistsInterface.getPlaylists();
 	};
 
-	mainLayout.showAlbum = function(album) {
+	mainLayout.showAlbum = function(album_id) {
 		//event.preventDefault();
 		hideAllWindows();
 		$("#showAlbumWindow").removeClass("hidden");
+		albums.show(album_id)
 	}
 
-	mainLayout.showArtist = function(artist) {
+	mainLayout.showArtist = function(artist_id) {
 		hideAllWindows();
 		$("#showArtistWindow").removeClass("hidden");
+		artists.show(artist_id)
 	}
 
 	/* Funcions auxiliars */

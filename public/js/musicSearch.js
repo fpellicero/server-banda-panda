@@ -29,10 +29,13 @@
 		console.log(data);
 		$("#searchSongsTable").addClass("hidden");
 		$("#searchAlbumsTable").addClass("hidden");
+		$("#searchArtistsTable").addClass("hidden");		
 		$("#songTab").removeClass("active");
 		$("#albumTab").removeClass("active");
+		$("#artistTab").removeClass("active");
 		$("#resultSongs").empty();
 		$("#resultAlbums").empty();
+		$("#resultArtists").empty();
 
 		// Funcio que pintarà les cançons
 		function addSong(song) {
@@ -40,11 +43,11 @@
 			$("td.songTitle",songElement).text(song.song_title);
 			$("td.albumTitle",songElement).text(song.album_title);
 			$("td.albumTitle",songElement).click(function() {
-				mainLayout.showAlbum();
+				mainLayout.showAlbum(song.album_id);
 			});			
 			$("td.artistName",songElement).text(song.artist_name);
 			$("td.artistName",songElement).click(function() {
-				mainLayout.showArtist();
+				mainLayout.showArtist(song.artist_id);
 			});
 
 			$("button.addButton",songElement).click(function() {
@@ -59,16 +62,22 @@
 			var albumElement = $("#albumResult-Template").clone().attr("id","").appendTo("#resultAlbums").removeClass("hidden");
 			$("td.albumCover img",albumElement).attr("src",album.cover_url);
 			$("td.albumCover",albumElement).click(function() {
-				mainLayout.showAlbum();
+				mainLayout.showAlbum(album.album_id);
 			})
 			$("td.albumTitle", albumElement).text(album.album_title);
 			$("td.albumTitle",albumElement).click(function() {
-				mainLayout.showAlbum();
+				mainLayout.showAlbum(album.album_id);
 			})
 			$("td.artistName", albumElement).text(album.artist_name);
 			$("td.artistName",albumElement).click(function() {
-				mainLayout.showArtist();
+				mainLayout.showArtist(album.artist_id);
 			})
+		}
+
+		function addArtist(artist) {
+			var artistElement = $("#artistResult-Template").clone().attr("id","").appendTo("#resultArtists").removeClass("hidden");
+			$("td.artistImg img",artistElement).attr("src",artist.artist_img_url);
+			$("td.artistName",artistElement).text(artist.artist_name);
 		}
 		
 		if(tab == "songs") {
@@ -83,6 +92,12 @@
 				addAlbum(this);
 			});	
 			$("#albumTab").addClass("active");
+		}else {
+			$("#searchArtistsTable").removeClass("hidden");
+			$(data).each(function() {
+				addArtist(this);
+			});
+			$("#artistTab").addClass("active");
 		}
 
 		
@@ -97,6 +112,10 @@
 		});
 		$("#albumTab").click(function(event) {
 			tab = "albums";
+			search(event);
+		});
+		$("#artistTab").click(function(event) {
+			tab = "artists";
 			search(event);
 		})
 	})
