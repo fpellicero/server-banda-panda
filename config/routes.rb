@@ -6,6 +6,9 @@ ServerBandaPanda::Application.routes.draw do
 
   get 'albums/:id' => 'albums#get'
   get 'artists/:id' => 'artists#get'
+  get 'users/:id/playlists/' => 'playlists#get'
+
+  post 'users/:id/playlists/' => 'playlists#create'
 
   put 'users/:id' => 'users#modify'
 

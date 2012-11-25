@@ -35,7 +35,7 @@ class ArtistsController < ApplicationController
 
 	    #Si els params son correctes fem la cerca:
 	    unless status == 400
-	      status = 200
+	        status = 200
 			@artists = Artist.where("name LIKE ?", "%#{params[:q]}%")
 
 			@artists.each do |a|
