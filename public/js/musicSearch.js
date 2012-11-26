@@ -78,6 +78,9 @@
 			var artistElement = $("#artistResult-Template").clone().attr("id","").appendTo("#resultArtists").removeClass("hidden");
 			$("td.artistImg img",artistElement).attr("src",artist.artist_img_url);
 			$("td.artistName",artistElement).text(artist.artist_name);
+			$("td", artistElement).click(function() {
+				mainLayout.showArtist(artist.artist_id);
+			})
 		}
 		
 		if(tab == "songs") {

@@ -5,7 +5,7 @@ var audioPlayer = new Object();
 (function() {
 	var currentPlaylist = [];
 	var songNum = 0;
-	var host = "";
+	var host = "http://bandapanda.comlu.com/";
 
 	function renderPlaylist() {
 		$("#currentPlaylist").empty();
