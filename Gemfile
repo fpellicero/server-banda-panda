@@ -11,7 +11,7 @@ gem 'mysql2'
 
 # Adaptador per a la PostgreSQL que utilitza Heroku
 group :production do
-#	gem 'pg'
+	gem 'pg'
 end
 
 # Autenticació d'usuaris
