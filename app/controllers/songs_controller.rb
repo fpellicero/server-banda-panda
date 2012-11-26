@@ -107,24 +107,27 @@ class SongsController < ApplicationController
     unless status == 400
       status = 200
       @songs = Song.where("title LIKE ?", "%#{params[:q]}%")
-      @albums = Album.where("title LIKE ?", "%#{params[:q]}%")
-      @artists = Artist.where("name LIKE ?", "%#{params[:q]}%")
 
-      @artists.each do |a| # Afegim albums que tenen la query a l'artist
-        a.album.each do |al|
-          unless @albums.include?(al)
-            @albums.push(al)
-          end
-        end
-      end
+      #crides per buscar per nom d'album i artist:
+      
+      #@albums = Album.where("title LIKE ?", "%#{params[:q]}%")
+      #@artists = Artist.where("name LIKE ?", "%#{params[:q]}%")
 
-      @albums.each do |a| # Afegim cancons que tenen query a l'album o a l'artista
-        a.song.each do |s|
-          unless @songs.include?(s)
-              @songs.push(s)
-          end
-        end
-      end
+      #@artists.each do |a| # Afegim albums que tenen la query a l'artist
+      #  a.album.each do |al|
+      #    unless @albums.include?(al)
+      #      @albums.push(al)
+      #    end
+      #  end
+      #end
+
+      #@albums.each do |a| # Afegim cancons que tenen query a l'album o a l'artista
+      #  a.song.each do |s|
+      #    unless @songs.include?(s)
+      #        @songs.push(s)
+      #    end
+      #  end
+      #end
 
       @songs.each do |s| # Afegim cancons que tenen la query al titol
         result = {:song_id => s.id, :song_title => s.title, :album_id => s.album_id, :album_title => s.album.title,

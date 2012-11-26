@@ -2,7 +2,7 @@ class PlaylistsController < ApplicationController
 
 	#POST /users/:id/playlists
 	def create
-		@playlist = Playlist.new({:name => params[:name], :user_id => params[:id]})
+		@playlist = Playlist.create({:name => params[:name], :user_id => params[:id]})
 		status = 200
 
 		respond_to do |format|
@@ -39,7 +39,7 @@ class PlaylistsController < ApplicationController
 
 	    unless status == 400
 	        status = 200
-			@playlists = Playlist.where("user_id ?", params[:id])
+			@playlists = Playlist.where("user_id = ?", params[:id])
 
 			@playlists.each do |p|
 				result = {:playlist_id => p.id, :playlist_name => p.name}
