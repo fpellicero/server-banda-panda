@@ -77,11 +77,11 @@ class AlbumsController < ApplicationController
 	    	status = 200
 	    	@album = Album.find(params[:id]);
 	    	@album.song.each do |s|
-	    		song = {:song_id => s.id, :song_track => nil, :song_title => s.title, :audio_url => s.url}
+	    		song = {:song_id => s.id, :song_track => s.track, :song_title => s.title, :audio_url => s.url}
 	    		songs.push(song)
 	    	end
 	    	result = {:album_title => @album.title, :cover_url => @album.cover, :artist_id => @album.artist.id, :artist_name => @album.artist.name, 
-	    		:album_genre => nil, :album_year => nil, :album_songs => songs}
+	    		:album_genre => @album.genre, :album_year => @album.year, :album_songs => songs}
 		end
 
 	    respond_to do |format|
