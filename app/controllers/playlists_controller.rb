@@ -123,6 +123,31 @@ class PlaylistsController < ApplicationController
 		    format.json { render json: result, :status => status }
 		end
 	end
+
+	# POST /playlists/{id}
+	def add
+		@playlist = Playlist.find(params[:id])
+		song = Song.find(params[:song_id])
+		@playlist.song << song
+		status = 200
+
+		respond_to do |format|
+	  		unless format.json 
+		        {:status => 406} #Nomes retorna Json
+		    end
+		    format.json { render json: @playlist, :status => status }
+		end
+	end
+
+	# PUT /playlists/{id}
+	def modify
+		@playlist = Playlist.find(params[:id])
+		@playlist.update_attribute(:name, params[:playlist_name])
+
+		respond_to do |format|
+      		format.json { render json: @playlist }
+      	end
+	end
 end
 
 # Crida per comprovar si un string representa un enter:
