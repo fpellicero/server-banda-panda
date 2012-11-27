@@ -10,4 +10,15 @@ class UsersController < ApplicationController
       		format.json { render json: @user, :status => status }
       	end
     end
+
+    # GET  /users/{id}
+    def get
+    	status = 200
+    	@user = User.find(params[:id])
+    	result = {:username => @user.username, :email => @user.email, :avatar => @user.avatar, :status => @user.status}
+
+		respond_to do |format|
+      		format.json { render json: result, :status => status }
+      	end
+    end
 end
