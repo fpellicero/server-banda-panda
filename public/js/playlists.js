@@ -86,93 +86,107 @@ var playlist3 = {
 /* DUMMY CODE */
 
 var playlistsInterface = new Object();
-playlistsInterface.playlists = [playlist1,playlist2,playlist3];
 
-playlistsInterface.getPlaylists = function () {
-	/* 
+playlistsInterface.getPlaylists = function (nCall) {
+	if (nCall == 0) playlistsInterface.playlists = [];
 	$.ajax({
-        url: "/users/" + loggedUser.id + /playlists.json",
+        url: "/users/" + loggedUser.id + "/playlists.json?offset=" + nCall*10,
         headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
         success: function(data,textStatus,jqXHR){
-          	playlists = data;
-            printSongs();
+        	console.log(data);
+        	playlistsInterface.playlists = playlistsInterface.playlists.concat(data);
+        	if (jqXHR.status == 206) {
+        		playlistsInterface.getPlaylists(nCall + 1);
+        	}
+        	renderPlaylists();	
         },
         dataType: "json",
         });
-	*/
-	var playlists = playlistsInterface.playlists;
 
-	function addPlaylist(playlist) {
-		var playlistElement = $("#playlist-Template").clone().attr("id","").appendTo("#navbarPlaylists").removeClass("hidden");
-		
-		$("a",playlistElement).text(playlist.name);
-		
-		playlistElement.click(function() {
-			playlistsInterface.selectedPlaylist = playlist;
-			mainLayout.showPlaylist();
-		});
-	}
-	$("#navbarPlaylists").empty();
-	$(playlists).each(function() {
-		addPlaylist(this);
-	})
+	function renderPlaylists() {
+		function addPlaylist(playlist) {
+			var playlistElement = $("#playlist-Template").clone().attr("id","").appendTo("#navbarPlaylists").removeClass("hidden");
+			
+			$("a",playlistElement).text(playlist.playlist_name);
+			
+			playlistElement.click(function() {
+				mainLayout.showPlaylist(playlist.playlist_id);
+			});
+		}
+		$("#navbarPlaylists").empty();
+
+		$(playlistsInterface.playlists).each(function() {
+			addPlaylist(this);
+		})
+	};	
 }
 
-playlistsInterface.renderSelectedPlaylist = function () {
+playlistsInterface.renderPlaylist = function (playlist_id) {
 	// Funcio que pintarà les cançons
-	function addSong(song) {
-		var songElement = $("#songPlaylist-Template").clone().attr("id","").appendTo("#playlistSongs").removeClass("hidden");
-		$("td.songTitle",songElement).text(song.song_title);
-		$("td.albumTitle",songElement).text(song.album_title);
-		$("td.albumTitle",songElement).click(function() {
-				mainLayout.showAlbum();
-			});
-		$("td.artistName",songElement).text(song.artist_name);
-		$("td.artistName",songElement).click(function() {
-				mainLayout.showArtist();
-			});
-		$("button.addButton",songElement).click(function() {
-			audioPlayer.addSongToCurrent(song);
-		});
-		$("button.playButton",songElement).click(function() {
-			audioPlayer.playSongNow(song);
-		})	
-	}
+	$.ajax({
+        url: "/playlists/" + playlist_id,
+        headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
+        success: function(data,textStatus,jqXHR){
+        	paintResults(data);	
+        },
+        dataType: "json",
+    });
 
-	$("#playlistSongs").empty();
-	$("#playlistsWindow h2").text(playlistsInterface.selectedPlaylist.name);
-	$(playlistsInterface.selectedPlaylist.songs).each(function() {
-		addSong(this);
-	});
+    function paintResults(playlist) {
+    	function addSong(song) {
+			var songElement = $("#songPlaylist-Template").clone().attr("id","").appendTo("#playlistSongs").removeClass("hidden");
+			$("td.songTitle",songElement).text(song.song_title);
+			$("td.albumTitle",songElement).text(song.album_title);
+			$("td.albumTitle",songElement).click(function() {
+					mainLayout.showAlbum();
+				});
+			$("td.artistName",songElement).text(song.artist_name);
+			$("td.artistName",songElement).click(function() {
+					mainLayout.showArtist();
+				});
+			$("button.addButton",songElement).click(function() {
+				audioPlayer.addSongToCurrent(song);
+			});
+			$("button.playButton",songElement).click(function() {
+				audioPlayer.playSongNow(song);
+			})	
+		}
+
+		$("#playlistSongs").empty();
+		$("#playlistsWindow h2").text(playlist.playlist_name);
+		$(playlist.songs).each(function() {
+			addSong(this);
+		});
+		playlistsInterface.selectedPlaylist = playlist;
+
+    }
+
+	
 }
 
 playlistsInterface.createPlaylist = function (playlist) {
-	/*
 	$.ajax({
-        url: "/users/" + loggedUser.id + /playlists.json",
+        url: "/users/" + loggedUser.id + "/playlists.json",
         type: "POST",
+        contentType: "application/json",
         headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
         data: JSON.stringify(playlist),
         success: playlistsInterface.getPlaylists(),
     });
-	*/
+
+	playlistsInterface.getPlaylists(0);
 	event.preventDefault();
-	alert("Not implemented yet!");
 }
 
-playlistsInterface.addSongToPlaylist = function (song, playlist_id) {
-	/*
-	var requestBody = {
-		song: song,
-		playlist_id: playlist_id
-	};
+playlistsInterface.addSongToPlaylist = function (song_id, playlist_id) {
 	$.ajax({
-        url: "/users/" + loggedUser.id + /playlists/" + playlist_id",
+        url: "/playlists/" + playlist_id + ".json",
         type: "POST",
         headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
-        data: JSON.stringify(requestBody),
+        data: { "song_id": song_id },
+        success: playlistsInterface.getPlaylists(),
     });
-	*/
+	
 }
 
 $(document).ready(function() {
@@ -182,7 +196,12 @@ $(document).ready(function() {
 	$("#addPlaylistToCurrentButton").click(function() {
 		audioPlayer.addPlaylistToCurrent(playlistsInterface.selectedPlaylist.songs);
 	});
+	
 	$("#createPlaylistForm").submit(function() {
-		playlistsInterface.createPlaylist([]);
+		var playlist = {
+			name: $("#createPlaylistForm input").val(),
+			songs: []
+		}
+		playlistsInterface.createPlaylist(playlist);
 	})
 }) 

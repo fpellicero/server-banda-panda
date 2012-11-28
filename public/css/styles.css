@@ -84,5 +84,8 @@ td.albumTitle:hover, td.artistName:hover {
 	overflow-x: hidden;
 	overflow-y: scroll; 
 }
+
+ul.dropdown-menu {
+	margin-left: -100px;
 }
 

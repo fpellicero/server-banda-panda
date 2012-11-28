@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121122172908) do
+ActiveRecord::Schema.define(:version => 20121127193608) do
 
   create_table "albums", :force => true do |t|
     t.string   "title"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(:version => 20121122172908) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "artist_id"
+    t.string   "genre"
+    t.integer  "year"
   end
 
   create_table "artists", :force => true do |t|
@@ -26,7 +28,23 @@ ActiveRecord::Schema.define(:version => 20121122172908) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "img"
+    t.string   "info"
+    t.integer  "year"
   end
+
+  create_table "playlists", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "user_id"
+  end
+
+  create_table "playlists_songs", :id => false, :force => true do |t|
+    t.integer "playlist_id"
+    t.integer "song_id"
+  end
+
+  add_index "playlists_songs", ["playlist_id", "song_id"], :name => "index_playlists_songs_on_playlist_id_and_song_id"
 
   create_table "songs", :force => true do |t|
     t.string   "title"
@@ -34,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20121122172908) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "album_id"
+    t.integer  "track"
   end
 
   create_table "users", :force => true do |t|
@@ -50,6 +69,9 @@ ActiveRecord::Schema.define(:version => 20121122172908) do
     t.string   "authentication_token"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.string   "username"
+    t.string   "avatar"
+    t.string   "status"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

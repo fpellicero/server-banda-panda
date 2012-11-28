@@ -26,7 +26,6 @@
 	}
 
 	function printResult(data) {
-		console.log(data);
 		$("#searchSongsTable").addClass("hidden");
 		$("#searchAlbumsTable").addClass("hidden");
 		$("#searchArtistsTable").addClass("hidden");		
@@ -55,7 +54,25 @@
 			});
 			$("button.playButton",songElement).click(function() {
 				audioPlayer.playSongNow(song);
-			})
+			});
+
+			var dropdownUL = $("ul.dropdown-menu",songElement).attr("id","dropdown" + song.song_id);
+			
+			for (var i = 0; i < playlistsInterface.playlists.length; i++) {
+
+				var playlist = playlistsInterface.playlists[i];
+				var playlistElement = $("#playlistMenuItem").clone().attr("id","").appendTo(dropdownUL).removeClass("hidden");
+				$("a",playlistElement).text(playlistsInterface.playlists[i].playlist_name);
+
+				function x(song_id, playlist_id) {
+					$(playlistElement).click(function() {
+						console.log(song_id + "--" + playlist_id);
+						playlistsInterface.addSongToPlaylist(song_id,playlist_id);
+					});
+				}
+				x(song.song_id, playlist.playlist_id);
+
+			}
 		}
 
 		function addAlbum(album) {

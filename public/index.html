@@ -103,6 +103,7 @@
                       <th>Artist</th>
                     </tr>
                   </thead>
+                  <li id="playlistMenuItem" class="hidden"><a></a></li>
                   <tr id="songResult-Template" class="hidden">
                     <td class="songTitle">Title</td>
                     <td class="albumTitle">Album</td>
@@ -110,6 +111,10 @@
                     <td class="buttons">
                       <button class="btn btn-mini addButton"><i class="icon-plus-sign"></i></button>
                       <button class="btn btn-mini playButton"><i class="icon-play"></i></button>
+                      <button class="btn btn-mini dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-th-list"></i></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"></ul>
+                      </button>
                     </td>
                   </tr>
                   <tbody id="resultSongs"></tbody>
