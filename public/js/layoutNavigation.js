@@ -22,17 +22,17 @@ var mainLayout = new Object();
 
 	};
 
-	mainLayout.showPlaylist = function () {
+	mainLayout.showPlaylist = function (playlist_id) {
 		event.preventDefault();
 
 		hideAllWindows();
 		$("#playlistsWindow").removeClass("hidden");
 
-		playlistsInterface.renderSelectedPlaylist();
+		playlistsInterface.renderPlaylist(playlist_id);
 	};
 
 	mainLayout.loadContent = function () {
-		playlistsInterface.getPlaylists();
+		playlistsInterface.getPlaylists(0);
 	};
 
 	mainLayout.showAlbum = function(album_id) {
