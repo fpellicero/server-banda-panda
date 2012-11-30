@@ -35,7 +35,7 @@ class ArtistsController < ApplicationController
 
 	    #Si els params son correctes fem la cerca:
 	    unless status == 400
-	      status = 200
+	        status = 200
 			@artists = Artist.where("name LIKE ?", "%#{params[:q]}%")
 
 			@artists.each do |a|
@@ -81,7 +81,7 @@ class ArtistsController < ApplicationController
 	    		album = {:album_id => a.id, :album_title => a.title, :album_cover => a.cover}
 	    		albums.push(album)
 	    	end
-	    	result = {:artist_name => @artist.name, :artist_image => @artist.img, :artist_info => nil, :artist_year => nil, :artist_albums => albums}
+	    	result = {:artist_name => @artist.name, :artist_image => @artist.img, :artist_info => @artist.info, :artist_year => @artist.year, :artist_albums => albums}
 		end
 
 		respond_to do |format|
