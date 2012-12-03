@@ -3,15 +3,30 @@ class PlaylistsController < ApplicationController
 	#POST /users/:id/playlists
 	# {playlist_name: String, songs: [song_id]*}
 	def create
-		@playlist = Playlist.create({:name => params[:name], :user_id => params[:id]})
-		status = 200
+		status = 201
 
-		params[:songs].each do |s|
-			song = Song.find(s.values)
-			@playlist.song << song
+		if !User.exists?(params[:id])
+		  	status = 404
 		end
 
-		result = {:id => @playlist.id}
+		params[:songs].each do |s|
+			if !s.is_i? || !(Integer(s) > 0)
+	        	status = 400
+	    	elsif !Song.exists?(s)
+	    		status = 400
+	    	end	
+	    end
+
+	    if status == 201
+			@playlist = Playlist.create({:name => params[:name], :user_id => params[:id]})
+
+			params[:songs].each do |s|
+				song = Song.find(s)
+				@playlist.song << song
+			end
+
+			result = {:id => @playlist.id}
+		end
 
 		respond_to do |format|
 	  		unless format.json 
@@ -26,6 +41,7 @@ class PlaylistsController < ApplicationController
 		results = Array.new()
 		lim = 10
 		offset = 0
+		status = 200
 
 		#Comprovem els params:
 	    #comprovem limit
@@ -45,8 +61,11 @@ class PlaylistsController < ApplicationController
 	      end
 	    end
 
-	    unless status == 400
-	        status = 200
+	   	if !User.exists?(params[:id])
+		  status = 404
+		end
+
+		if status == 200
 			@playlists = Playlist.where("user_id = ?", params[:id])
 
 			@playlists.each do |p|
@@ -77,6 +96,7 @@ class PlaylistsController < ApplicationController
 		offset = 0
 		songs = Array.new()
 		result = Array.new()
+        status = 200
 
 		#Comprovem els params:
 	    #comprovem limit
@@ -96,8 +116,11 @@ class PlaylistsController < ApplicationController
 	      end
 	    end
 
-	    unless status == 400
-	        status = 200
+	   	if !Playlist.exists?(params[:id])
+		  status = 404
+		end
+
+		if status == 200
 			@playlist = Playlist.find(params[:id])
 
 			@playlist.song.each do |s|
@@ -126,10 +149,21 @@ class PlaylistsController < ApplicationController
 
 	# POST /playlists/{id}
 	def add
-		@playlist = Playlist.find(params[:id])
-		song = Song.find(params[:song_id])
-		@playlist.song << song
 		status = 200
+
+		if !Song.exists?(params[:song_id])
+		  status = 404
+		end
+
+		if !Playlist.exists?(params[:id])
+		  status = 404
+		end
+
+		if status == 200
+			@playlist = Playlist.find(params[:id])
+			song = Song.find(params[:song_id])
+			@playlist.song << song
+		end
 
 		respond_to do |format|
 	  		unless format.json 
@@ -141,11 +175,61 @@ class PlaylistsController < ApplicationController
 
 	# PUT /playlists/{id}
 	def modify
-		@playlist = Playlist.find(params[:id])
-		@playlist.update_attribute(:name, params[:playlist_name])
+		status = 200
+
+		if !Playlist.exists?(params[:id])
+		  status = 404
+		end
+
+		if status == 200
+			@playlist = Playlist.find(params[:id])
+			@playlist.update_attribute(:name, params[:playlist_name])
+		end
 
 		respond_to do |format|
-      		format.json { render json: @playlist }
+      		format.json { render json: @playlist, :status => status }
+      	end
+	end
+
+	#DELETE /playlists/{id_playlist}/{id_song}
+	def delete_song
+		status = 200
+
+		if !Song.exists?(params[:id_song])
+		  status = 404
+		end
+
+		if !Playlist.exists?(params[:id_playlist])
+		  status = 404
+		end
+
+		if status == 200
+			@playlist = Playlist.find(params[:id_playlist])
+			song = Song.find(params[:id_song])
+			@playlist.song.delete(song)
+		end
+
+		respond_to do |format|
+      		format.json { render json: @playlist, :status => status }
+      	end
+	end
+
+	#DELETE /playlists/{id}
+	def delete
+		status = 200
+
+		if !Playlist.exists?(params[:id])
+		  status = 404
+		end
+
+		if status == 200
+			@playlist = Playlist.find(params[:id])
+			@playlist.song.clear()
+			@playlist.destroy()
+		end
+
+		respond_to do |format|
+      		format.json { render json: nil, :status => status }
       	end
 	end
 end
