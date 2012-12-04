@@ -10,8 +10,9 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="/js/jquery.mousewheel.min.js"></script>
 
-    <!-- Scripts de bootstrap -->
+    <!-- Scripts de bootstrap i pusher-->
     <script src="js/bootstrap.min.js"></script>
+    <script src="http://js.pusher.com/1.12/pusher.min.js" type="text/javascript"></script>
 
     <!-- Scripts -->
     <script src="js/login.js"></script>
@@ -21,6 +22,10 @@
     <script src="js/layoutNavigation.js"></script>
     <script src="js/albums.js"></script>
     <script src="js/artists.js"></script>
+    
+    <script src="js/notifications.js">
+      
+    </script>
   </head>
   <body>
     
@@ -55,6 +60,13 @@
                 <li id="searchMusicNavLink" class="active"><a href="#" >Search Music</a></li>
                 <li id="editProfileNavLink"><a href="#" >Edit Profile</a></li>
               </ul>
+              <ul class="nav pull-right">
+                <li id="notificationMenuTemplate" class="hidden"><a href="#"></a></li>
+                <li class="dropdown notifications">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Notifications</a>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"></ul>
+                </li>
+              </ul>
             </div>
           </div>
         </div><!-- / Navbar Superior -->
@@ -75,7 +87,8 @@
             </form>
           </div><!-- Navbar Esquerre -->
 
-
+          <div id="notification-template" class="notification hidden"></div>
+          <div id="notifications" class="span4"></div>
           <!-- Main content -->
           <div id="main-content" class="well span9" style="height: 100%">
             
@@ -274,6 +287,8 @@
                 </div>
                 <div class="span8">
                   <h2><span class="artist_name"></span></h2>
+                  <span class="artist_year"></span><br>
+                  <span class="artist_info"></span><br>
                 </div>              
               </div>
               <hr>

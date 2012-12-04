@@ -22,6 +22,8 @@ var artists = new Object();
 		
 			$("#artistPortrait").attr("src",artist.artist_image);
 			$("span.artist_name").text(artist.artist_name);
+			$("span.artist_year").text(artist.artist_year);
+			$("span.artist_info").text(artist.artist_info);
 		
 			$("#artistAlbums").empty();
 			$(artist.artist_albums).each(function() {
