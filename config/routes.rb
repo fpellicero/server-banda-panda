@@ -4,6 +4,7 @@ ServerBandaPanda::Application.routes.draw do
   get 'albums/search' => 'albums#search'
   get 'artists/search' => 'artists#search'
 
+  get 'songs/:id' => 'songs#get'
   get 'albums/:id' => 'albums#get'
   get 'artists/:id' => 'artists#get'
   get 'users/:id/playlists' => 'playlists#usr_get'
