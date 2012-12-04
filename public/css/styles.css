@@ -110,3 +110,8 @@ ul.dropdown-menu {
 	padding: 25px;
 	color: gainsboro;
 }
+
+ul .dropdown-menu {
+	max-height: 500px;
+	overflow-y: scroll;
+}
