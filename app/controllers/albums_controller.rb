@@ -3,7 +3,7 @@ class AlbumsController < ApplicationController
 	 #GET /albums/search?q=”...”&order=”...”&lim=”...”&offset=”...”
 	def search
 		results = Array.new()
-	    lim = 5
+	    lim = 30
 	    offset = 0
 	    order = "ASC"
 
