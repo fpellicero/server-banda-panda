@@ -89,3 +89,24 @@ ul.dropdown-menu {
 	margin-left: -100px;
 }
 
+.artist_year {
+	font-style: italic;
+	position: relative;
+	top: -15px;
+}
+
+#notifications {
+	height: 50px;
+	position: absolute;
+	top: 25px;
+	right: 25px;
+}
+
+.notification {
+	z-index: 20;
+	margin-bottom: 10px;
+	background-color: rgba(0, 0, 0, 0.8);
+	border-radius: 15px;
+	padding: 25px;
+	color: gainsboro;
+}
