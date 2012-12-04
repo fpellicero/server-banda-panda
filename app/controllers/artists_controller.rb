@@ -78,7 +78,11 @@ class ArtistsController < ApplicationController
 			status = 200
 	    	@artist = Artist.find(params[:id]);
 	    	@artist.album.each do |a|
+<<<<<<< HEAD
 	    		album = {:album_id => a.id, :album_title => a.title, :album_year => a.year, :album_cover => a.cover}
+=======
+	    		album = {:album_id => a.id, :album_title => a.title, :album_cover => a.cover, :album_year => a.year}
+>>>>>>> 80177f93cb557a58571ff080a895490ced95edc1
 	    		albums.push(album)
 	    	end
 	    	result = {:artist_name => @artist.name, :artist_image => @artist.img, :artist_info => @artist.info, :artist_year => @artist.year, :artist_albums => albums}
