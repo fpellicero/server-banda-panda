@@ -10,8 +10,10 @@ ServerBandaPanda::Application.routes.draw do
   get '/api/artists/:id' => 'artists#get'
   get '/api/users/:id/playlists' => 'playlists#usr_get'
   get '/api/playlists/:id' => 'playlists#get'
+  get '/api/users/:id/recommendations' => 'recommendations#get'
   get '/api/users/:id' => 'users#get'
 
+  post '/api/users/:id/recommendations' => 'recommendations#create'
   post '/api/users/:id/playlists' => 'playlists#create'
   post '/api/playlists/:id' => 'playlists#add'
 
