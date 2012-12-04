@@ -9,20 +9,24 @@ class PlaylistsController < ApplicationController
 		  	status = 404
 		end
 
-		params[:songs].each do |s|
-			if !s.is_i? || !(Integer(s) > 0)
-	        	status = 400
-	    	elsif !Song.exists?(s)
-	    		status = 400
-	    	end	
-	    end
+		if params[:songs] && !params[:songs].empty?
+			params[:songs].each do |s|
+				if !s.is_i? || !(Integer(s) > 0)
+		        	status = 400
+		    	elsif !Song.exists?(s)
+		    		status = 400
+		    	end	
+		    end
+		end
 
 	    if status == 201
 			@playlist = Playlist.create({:name => params[:name], :user_id => params[:id]})
 
-			params[:songs].each do |s|
-				song = Song.find(s)
-				@playlist.song << song
+			if params[:songs] && !params[:songs].empty?
+				params[:songs].each do |s|
+					song = Song.find(s)
+					@playlist.song << song
+				end
 			end
 
 			result = {:id => @playlist.id}
