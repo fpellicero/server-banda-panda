@@ -3,7 +3,7 @@ class RecommendationsController < ApplicationController
 	#POST /users/{id}/recommendations
 	def create
 		status = 201
-		recommendation = Recommendation.create({:source_id => params[:id], :target_id => params[:target_id], :type => params[:type], :resource_id => params[:resource_id]})
+		recommendation = Recommendation.create({:source_id => params[:id], :target_id => params[:target_id], :type => params[:type], :resource_id => params[:resource_id], :read => 0})
 		#require 'pusher'
 
 		Pusher.app_id = '32879'
@@ -26,7 +26,10 @@ class RecommendationsController < ApplicationController
 		recommendations = Recommendation.where("target_id = ?", "#{params[:id]}")
 
 		recommendations.each do |r|
-			result = {:source_id => r.source_id, :type => r.type, :resource_id => r.resource_id}
+			result = {:source_id => r.source_id, :type => r.type, :resource_id => r.resource_id, :date => r.created_at, :read => r.read}
+			if r.read == 0
+				r.update_attribute :read, 1
+			end
 			results.push(result)
 		end
 
