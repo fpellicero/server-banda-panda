@@ -6,29 +6,31 @@ class RecommendationsController < ApplicationController
 
 		if !User.exists?(params[:id]) || !User.exists?(params[:target_id])
 		  status = 404
-		end
+	    elsif current_user.id != Integer(params[:id])
+      		status = 403
+    	end
 
-		if params[:type] == "song"
-			if !Song.exists?(params[:resource_id])
-				status = 404
+    	if status == 201
+			if params[:type] == "song"
+				if !Song.exists?(params[:resource_id])
+					status = 404
+				end
+			elsif params[:type] == "album"
+				if !Album.exists?(params[:resource_id])
+					status = 404
+				end
+			elsif params[:type] == "artist"
+				if !Artist.exists?(params[:resource_id])
+					status = 404
+				end
+			elsif params[:type] == "playlist"
+				if !Playlist.exists?(params[:resource_id])
+					status = 404
+				end
+			else
+				status = 400
 			end
-		elsif params[:type] == "album"
-			if !Album.exists?(params[:resource_id])
-				status = 404
-			end
-		elsif params[:type] == "artist"
-			if !Artist.exists?(params[:resource_id])
-				status = 404
-			end
-		elsif params[:type] == "playlist"
-			if !Playlist.exists?(params[:resource_id])
-				status = 404
-			end
-		else
-			status = 400
 		end
-			
-			
 
 		if status == 201
 			recommendation = Recommendation.create({:source_id => params[:id], :target_id => params[:target_id], :type => params[:type], :resource_id => params[:resource_id], :read => 0})
@@ -74,7 +76,9 @@ class RecommendationsController < ApplicationController
 
 	   	if !User.exists?(params[:id])
 		  status = 404
-		end
+	    elsif current_user.id != Integer(params[:id])
+      		status = 403
+    	end
 
 		if status == 200
 			recommendations = Recommendation.where("target_id = ?", "#{params[:id]}")

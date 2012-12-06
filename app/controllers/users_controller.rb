@@ -7,8 +7,10 @@ class UsersController < ApplicationController
     
     if !User.exists?(params[:id])
       status = 404
+    elsif current_user.id != Integer(params[:id])
+      status = 403
     end
-    
+
     if status == 205
   		user = User.find(params[:id])
       if params[:email]
