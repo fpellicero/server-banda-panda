@@ -4,12 +4,10 @@ class RecommendationsController < ApplicationController
 	def create
 		status = 201
 
-		if !User.exists?(params[:id]) || !User.exists?(params[:target_id])
-		  status = 404
-	    elsif current_user.id != Integer(params[:id])
-      		status = 403
-    	end
-
+		if !User.exists?(params[:id])
+		  	status = 404
+		end
+		
     	if status == 201
 			if params[:type] == "song"
 				if !Song.exists?(params[:resource_id])
@@ -33,13 +31,13 @@ class RecommendationsController < ApplicationController
 		end
 
 		if status == 201
-			recommendation = Recommendation.create({:source_id => params[:id], :target_id => params[:target_id], :type => params[:type], :resource_id => params[:resource_id], :read => 0})
+			recommendation = Recommendation.create({:source_id => current_user.id, :target_id => params[:id], :type => params[:type], :resource_id => params[:resource_id], :read => 0})
 			#require 'pusher'
 
 			Pusher.app_id = '32879'
 			Pusher.key = '37cc28f59fd3d3e4f801'
 			Pusher.secret = 'e27edba348e362857de9'
-	    	Pusher.trigger('notification_'+params[:target_id], params[:type]+'_recommendation', {:resource_id => params[:resource_id], :source_id => params[:id] })
+	    	Pusher.trigger('notification_'+params[:id], params[:type]+'_recommendation', {:resource_id => params[:resource_id], :source_id => current_user.id })
     	end
 
 		respond_to do |format|
