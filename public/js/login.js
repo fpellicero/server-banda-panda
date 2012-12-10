@@ -32,6 +32,7 @@ var loggedUser;
 				$('#layout').fadeToggle();
 				$('#layout').removeClass("hidden");
 				mainLayout.loadContent();
+				notifications.init();
 			});
 		}
 	}

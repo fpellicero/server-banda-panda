@@ -37,7 +37,7 @@ class RecommendationsController < ApplicationController
 			Pusher.app_id = '32879'
 			Pusher.key = '37cc28f59fd3d3e4f801'
 			Pusher.secret = 'e27edba348e362857de9'
-	    	Pusher.trigger('notification_'+params[:id], params[:type]+'_recommendation', {:resource_id => params[:resource_id], :source_id => current_user.id })
+	    	Pusher.trigger('notifications_'+params[:id], params[:type]+'_recommendation', {:resource_id => params[:resource_id], :source_id => current_user.id })
     	end
 
 		respond_to do |format|

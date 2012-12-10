@@ -11,7 +11,17 @@ var recomendations = new Object();
 	}
 
 	function recommend(type, resource_id, user_id) {
-		alert("Recommend " + type + " " + resource_id + " from " + loggedUser.id + " to " + user_id);
+		$.ajax({
+			url: "/api/users/" + user_id + "/recommendations",
+			type: "POST",
+	        headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
+	        data: {
+	        	"type": type,
+	        	"resource_id": resource_id
+	        }
+		});
+
+		$("#usersModal").modal('hide');
 	}
 
 	function showResults(data) {

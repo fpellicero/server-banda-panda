@@ -21,11 +21,15 @@ var notifications = new Object();
       notifications.init = function() {
             var pusher = new Pusher('37cc28f59fd3d3e4f801');
             var channel = pusher.subscribe('notifications_' + loggedUser.id);
-      
-            channel.bind('recomendation', function(data) {
-                  var notification = $("#notification-template").clone().attr("id","").prependTo("#notifications").text(data);
+            // Enable pusher logging - don't include this in production
+                Pusher.log = function(message) {
+                  if (window.console && window.console.log) window.console.log(message);
+                };
+                console.log("HUSBISI");
+            channel.bind('song_recommendation', function(data) {
+                  var notification = $("#notification-template").clone().attr("id","").prependTo("#notifications").text(data.source_id);
                   $(notification).fadeIn().delay(3000).fadeOut();
-                  notifications_list.push(data.toString());
+                  notifications_list.push(data.soure);
                   notifications.renderNotifications();
             });      
       }
