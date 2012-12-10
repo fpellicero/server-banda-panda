@@ -3,7 +3,7 @@ class ArtistsController < ApplicationController
 	#GET /artists/search?q=”...”&order=”...”&lim=”...”&offset=”...”
 	def search
 		results = Array.new()
-	    lim = 10
+	    lim = 30
 	    offset = 0
 	    order = "ASC"
 
@@ -78,7 +78,7 @@ class ArtistsController < ApplicationController
 			status = 200
 	    	@artist = Artist.find(params[:id]);
 	    	@artist.album.each do |a|
-	    		album = {:album_id => a.id, :album_title => a.title, :album_cover => a.cover, :album_year => a.year}
+	    		album = {:album_id => a.id, :album_title => a.title, :album_year => a.year, :album_cover => a.cover}
 	    		albums.push(album)
 	    	end
 	    	result = {:artist_name => @artist.name, :artist_image => @artist.img, :artist_info => @artist.info, :artist_year => @artist.year, :artist_albums => albums}
