@@ -12,18 +12,26 @@ class RecommendationsController < ApplicationController
 			if params[:type] == "song"
 				if !Song.exists?(params[:resource_id])
 					status = 404
+				else
+					resource_name = Song.find(params[:resource_id]).title
 				end
 			elsif params[:type] == "album"
 				if !Album.exists?(params[:resource_id])
 					status = 404
+				else
+					resource_name = Album.find(params[:resource_id]).title
 				end
 			elsif params[:type] == "artist"
 				if !Artist.exists?(params[:resource_id])
 					status = 404
+				else
+					resource_name = Artist.find(params[:resource_id]).name
 				end
 			elsif params[:type] == "playlist"
 				if !Playlist.exists?(params[:resource_id])
 					status = 404
+				else
+					resource_name = Playlist.find(params[:resource_id]).name
 				end
 			else
 				status = 400
@@ -32,12 +40,8 @@ class RecommendationsController < ApplicationController
 
 		if status == 201
 			recommendation = Recommendation.create({:source_id => current_user.id, :target_id => params[:id], :type => params[:type], :resource_id => params[:resource_id], :read => 0})
-			#require 'pusher'
 
-			Pusher.app_id = '32879'
-			Pusher.key = '37cc28f59fd3d3e4f801'
-			Pusher.secret = 'e27edba348e362857de9'
-	    	Pusher.trigger('notification_'+params[:id], params[:type]+'_recommendation', {:resource_id => params[:resource_id], :source_id => current_user.id })
+	    	Pusher.trigger('notification_'+params[:id], params[:type]+'_recommendation', {:resource_id => params[:resource_id], :resource_name => resource_name, :source_id => current_user.id, :source_username => current_user.username })
     	end
 
 		respond_to do |format|
@@ -82,7 +86,19 @@ class RecommendationsController < ApplicationController
 			recommendations = Recommendation.where("target_id = ?", "#{params[:id]}")
 
 			recommendations.each do |r|
-				result = {:source_id => r.source_id, :type => r.type, :resource_id => r.resource_id, :date => r.created_at, :read => r.read}
+				username = User.find(r.source_id).username
+				if r.type == "song" 
+					resource_name = Song.find(r.resource_id).title
+				elsif r.type == "album"
+					resource_name = Album.find(r.resource_id).title
+				elsif r.type == "artist"
+					resource_name = Artist.find(r.resource_id).name
+				else
+					resource_name = Playlist.find(r.resource_id).name
+				end 
+						
+					
+				result = {:source_id => r.source_id, :source_username => username, :type => r.type, :resource_id => r.resource_id, :resource_name => resource_name, :date => r.created_at, :read => r.read}
 				# si encara no ha estat llegida, la marquem com a llegida.
 				if r.read == 0
 					r.update_attribute :read, 1
