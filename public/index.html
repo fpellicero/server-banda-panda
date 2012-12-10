@@ -23,6 +23,7 @@
     <script src="js/albums.js"></script>
     <script src="js/artists.js"></script>
     <script src="js/notifications.js"></script>
+    <script src="js/recomendations.js"></script>
     
   </head>
   <body>
@@ -48,6 +49,8 @@
 
         <!-- Layout per defecte -->
     <div id="layout" class="container-fluid hidden" style="height: 100%">
+      
+      
 
        <!-- Navbar Superior -->
         <div class="row-fluid">
@@ -90,6 +93,25 @@
           <!-- Main content -->
           <div id="main-content" class="well span9" style="height: 100%">
             
+            <div id="usersModal" class="modal hide fade">
+              <div class="modal-body">
+                <form id="searchUsersForm" action="" class="form-search">
+                  <div class="input-append">
+                    <input type="text" class="search-query">
+                    <button type="submit" class="btn"><i class="icon-search"></i></button>
+                  </div>
+                </form>
+                <tr id="searchUserTemplate" class="hidden">
+                  <td></td>
+                </tr>
+                <table class="table">
+                  <tbody id="userSearchTable"></tbody>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+              </div>
+            </div>
 
             <!-- Search music window -->
             <div id="searchMusicWindow" class="row contentWindow">

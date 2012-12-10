@@ -18,20 +18,16 @@ var notifications = new Object();
             
       }
 
-	  // Enable pusher logging - don't include this in production
-      Pusher.log = function(message) {
-        if (window.console && window.console.log) window.console.log(message);
-      };
-      notifications.list = [];
-      // Flash fallback logging - don't include this in production
-      WEB_SOCKET_DEBUG = true;
-
-      var pusher = new Pusher('37cc28f59fd3d3e4f801');
-      var channel = pusher.subscribe('notifications');
-      channel.bind('recomendation', function(data) {
-		var notification = $("#notification-template").clone().attr("id","").prependTo("#notifications").text(data);
-		$(notification).fadeIn().delay(3000).fadeOut();
-		notifications_list.push(data.toString());
-            notifications.renderNotifications();
-      });
+      notifications.init = function() {
+            var pusher = new Pusher('37cc28f59fd3d3e4f801');
+            var channel = pusher.subscribe('notifications_' + loggedUser.id);
+      
+            channel.bind('recomendation', function(data) {
+                  var notification = $("#notification-template").clone().attr("id","").prependTo("#notifications").text(data);
+                  $(notification).fadeIn().delay(3000).fadeOut();
+                  notifications_list.push(data.toString());
+                  notifications.renderNotifications();
+            });      
+      }
+      
 })();

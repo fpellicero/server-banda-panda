@@ -54,6 +54,7 @@ var loggedUser;
 				id: data.user_id,
 				auth_token: data.auth_token
 			};
+			notifications.init();
 			if($("#remember_me").attr("checked")) {
 				document.cookie="remember_user_id" + "=" + data.user_id;
 				document.cookie = "remember_user_token=" + data.auth_token;
