@@ -1,96 +1,9 @@
-
-/* DUMMY CODE */
-var song1 = {
-	song_title: "American Slang",
-	album_title: "Handwritten",
-	artist_name: "The Gaslight Anthem",
-	audio_url: "/audio/1.mp3",
-	cover_url: "/covers/1.jpg"
-};
-
-var song2 = {
-	song_title: "Stay Lucky",
-	album_title: "Handwritten",
-	artist_name: "The Gaslight Anthem",
-	audio_url: "/audio/2.mp3",
-	cover_url: "/covers/1.jpg"
-};
-
-var song3 = {
-	song_title: "Bring it On",
-	album_title: "Handwritten",
-	artist_name: "The Gaslight Anthem",
-	audio_url: "/audio/3.mp3",
-	cover_url: "/covers/1.jpg"
-};
-
-var song4 = {
-	song_title: "The Diamond Church Street Choir",
-	album_title: "Handwritten",
-	artist_name: "The Gaslight Anthem",
-	audio_url: "/audio/4.mp3",
-	cover_url: "/covers/1.jpg"
-};
-
-var song5 = {
-	song_title: "The Queen of Lower Chelsea",
-	album_title: "Handwritten",
-	artist_name: "The Gaslight Anthem",
-	audio_url: "/audio/5.mp3",
-	cover_url: "/covers/1.jpg"
-};
-
-var song6 = {
-	song_title: "Orphans",
-	album_title: "Handwritten",
-	artist_name: "The Gaslight Anthem",
-	audio_url: "/audio/6.mp3",
-	cover_url: "/covers/1.jpg"
-};
-
-var song7 = {
-	song_title: "A Flight and a Crash",
-	album_title: "A Flight and a Crash",
-	artist_name: "Hot Water Music",
-	audio_url: "/audio/7.mp3",
-	cover_url: "/covers/2.jpg"
-};
-
-var song8 = {
-	song_title: "Old Rules",
-	album_title: "A Flight and a Crash",
-	artist_name: "Hot Water Music",
-	audio_url: "/audio/8.mp3",
-	cover_url: "/covers/2.jpg"
-};
-
-var song9 = {
-	song_title: "She Takes it so Well",
-	album_title: "A Flight and a Crash",
-	artist_name: "Hot Water Music",
-	audio_url: "/audio/9.mp3",
-	cover_url: "/covers/2.jpg"
-};
-var playlist1 = {
-	name: "test 1",
-	songs: [song1,song2,song3,song4,song5,song6,song7,song8,song9]
-};
-var playlist2 = {
-	name: "test 2",
-	songs: [song1,song2,song3,song4,song5,song6,song7,song8,song9]
-};
-var playlist3 = {
-	name: "test 3",
-	songs: [song1,song2,song3,song4,song5,song6,song7,song8,song9]
-};
-/* DUMMY CODE */
-
 var playlistsInterface = new Object();
 
 playlistsInterface.getPlaylists = function (nCall) {
 	if (nCall == 0) playlistsInterface.playlists = [];
 	$.ajax({
-        url: "/users/" + loggedUser.id + "/playlists.json?offset=" + nCall*10,
+        url: "/api/users/" + loggedUser.id + "/playlists.json?offset=" + nCall*10,
         headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
         success: function(data,textStatus,jqXHR){
         	console.log(data);
@@ -124,7 +37,7 @@ playlistsInterface.getPlaylists = function (nCall) {
 playlistsInterface.renderPlaylist = function (playlist_id) {
 	// Funcio que pintarà les cançons
 	$.ajax({
-        url: "/playlists/" + playlist_id,
+        url: "/api/playlists/" + playlist_id,
         headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
         success: function(data,textStatus,jqXHR){
         	paintResults(data);	
@@ -166,7 +79,7 @@ playlistsInterface.renderPlaylist = function (playlist_id) {
 
 playlistsInterface.createPlaylist = function (playlist) {
 	$.ajax({
-        url: "/users/" + loggedUser.id + "/playlists.json",
+        url: "/api/users/" + loggedUser.id + "/playlists.json",
         type: "POST",
         contentType: "application/json",
         headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
@@ -180,7 +93,7 @@ playlistsInterface.createPlaylist = function (playlist) {
 
 playlistsInterface.addSongToPlaylist = function (song_id, playlist_id) {
 	$.ajax({
-        url: "/playlists/" + playlist_id + ".json",
+        url: "/api/playlists/" + playlist_id + ".json",
         type: "POST",
         headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
         data: { "song_id": song_id },

@@ -32,7 +32,7 @@ var artists = new Object();
 		}
 
 		$.ajax({
-        url: "/artists/" + artist_id,
+        url: "/api/artists/" + artist_id,
         headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
         success: function(data,textStatus,jqXHR){
             printArtist(data);

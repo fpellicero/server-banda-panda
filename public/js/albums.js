@@ -39,7 +39,7 @@ var albums = new Object();
 		}
 
 		$.ajax({
-        url: "/albums/" + album_id,
+        url: "/api/albums/" + album_id,
         headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
         success: function(data,textStatus,jqXHR){
             printAlbum(data);

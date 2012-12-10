@@ -9,4 +9,41 @@ var recomendations = new Object();
 		recomendationResource = resource_id;
 		$("#usersModal").modal();
 	}
+
+	function recommend(type, resource_id, user_id) {
+		alert("Recommend " + type + " " + resource_id + " from " + loggedUser.id + " to " + user_id);
+	}
+
+	function showResults(data) {
+
+		function addUser(user) {
+			console.log(user);
+			var userElement = $("#searchUserTemplate").clone().attr("id","").appendTo("#userSearchTable").removeClass("hidden");
+			$("td",userElement).text(user.user_username);
+			$(userElement).click(function() {
+				recommend(recomendationType, recomendationResource, user.user_id);
+			});
+		}
+		console.log(data);
+		$(data).each(function() {
+			addUser(this);
+		});
+	}
+
+	$(document).ready(function() {
+		$("#searchUsersForm").submit(function() {
+			event.preventDefault();
+			var query = $("#searchUsersForm input").val();			
+			$.ajax({
+				url: "/api/users/search",
+		        headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
+		        data: {"q": query},
+		        success: function (data) {
+		        	showResults(data);
+		        },
+		        dataType: "json"
+			});
+
+		})
+	})
 })();

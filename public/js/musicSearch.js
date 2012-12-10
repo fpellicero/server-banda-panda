@@ -7,11 +7,11 @@
 		query = $("#searchForm input").val();
 		var url;
 		if(tab == "songs") {
-			url = "/songs/search.json";
+			url = "/api/songs/search.json";
 		}else if (tab == "albums") {
-			url = "/albums/search.json";
+			url = "/api/albums/search.json";
 		}else {
-			url = "/artists/search.json";
+			url = "/api/artists/search.json";
 		}
 
 		$.ajax({
@@ -56,6 +56,10 @@
 				audioPlayer.playSongNow(song);
 			});
 
+			$("button.recommendButton",songElement).click(function() {
+				recomendations.showUser("song", song.song_id);
+			})
+
 			var dropdownUL = $("ul.dropdown-menu",songElement).attr("id","dropdown" + song.song_id);
 			
 			for (var i = 0; i < playlistsInterface.playlists.length; i++) {
@@ -88,6 +92,10 @@
 			$("td.artistName", albumElement).text(album.artist_name);
 			$("td.artistName",albumElement).click(function() {
 				mainLayout.showArtist(album.artist_id);
+			});
+
+			$("button.recommendButton",albumElement).click(function() {
+				recomendations.showUser("album", album.album_id);
 			})
 		}
 
@@ -97,6 +105,9 @@
 			$("td.artistName",artistElement).text(artist.artist_name);
 			$("td", artistElement).click(function() {
 				mainLayout.showArtist(artist.artist_id);
+			})
+			$("button.recommendButton",artistElement).click(function() {
+				recomendations.showUser("artist", artist.artist_id);
 			})
 		}
 		

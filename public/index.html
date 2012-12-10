@@ -101,10 +101,10 @@
                     <button type="submit" class="btn"><i class="icon-search"></i></button>
                   </div>
                 </form>
-                <tr id="searchUserTemplate" class="hidden">
-                  <td></td>
-                </tr>
                 <table class="table">
+                  <tr id="searchUserTemplate" class="hidden" style="cursor: pointer">
+                    <td></td>
+                  </tr>
                   <tbody id="userSearchTable"></tbody>
                 </table>
               </div>
@@ -148,6 +148,7 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-th-list"></i></a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"></ul>
                       </button>
+                      <button class="btn btn-mini recommendButton"><i class="icon-gift"></i></button>
                     </td>
                   </tr>
                   <tbody id="resultSongs"></tbody>
@@ -168,6 +169,9 @@
                     <td class="span2 albumCover"><img src=""></td>
                     <td class="albumTitle">Album</td>
                     <td class="artistName">Artist</td>
+                    <td>
+                      <button class="btn recommendButton">Send to a friend!</button>
+                    </td>
                   </tr>
                   <tbody id="resultAlbums"></tbody>
                 </table>
@@ -185,6 +189,9 @@
                   <tr id="artistResult-Template" class="hidden">
                     <td class="span2 artistImg"><img src=""></td>
                     <td class="artistName">Artist</td>
+                    <td>
+                      <button class="btn recommendButton">Send to a friend!</button>
+                    </td>
                   </tr>
                   <tbody id="resultArtists"></tbody>
                 </table>
