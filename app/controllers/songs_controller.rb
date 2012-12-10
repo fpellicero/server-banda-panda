@@ -74,7 +74,8 @@ class SongsController < ApplicationController
   def get
     begin
       s = Song.find(params[:id])
-      format.json { render status: :ok, json: {:song_id => s.id, :song_title => s.title, :album_id => s.album_id, :album_title => s.album.title, :artist_id => s.album.artist_id, :artist_name => s.album.artist.name, :audio_url => s.url, :cover_url => s.album.cover} }
+     
+      render status: :ok, json: {:song_id => s.id, :song_title => s.title, :album_id => s.album_id, :album_title => s.album.title, :artist_id => s.album.artist_id, :artist_name => s.album.artist.name, :audio_url => s.url, :cover_url => s.album.cover}
     rescue ActiveRecord::RecordNotFound
       head :not_found
     end
