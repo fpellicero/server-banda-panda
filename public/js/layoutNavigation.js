@@ -33,7 +33,7 @@ var mainLayout = new Object();
 
 	mainLayout.loadContent = function () {
 		playlistsInterface.getPlaylists(0);
-		notifications.renderNotifications();
+		notifications.get();
 	};
 
 	mainLayout.showAlbum = function(album_id) {
