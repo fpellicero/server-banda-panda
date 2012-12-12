@@ -8,6 +8,9 @@ class ApplicationController < ActionController::Base
   
   protect_from_forgery
 
+  Pusher.app_id = '32879'
+  Pusher.key = '37cc28f59fd3d3e4f801'
+  Pusher.secret = 'e27edba348e362857de9'
 
   # En cas de que no passem un auth_token com a parametre però si com a Header, copiem el token a l'array de params perque aixi ho demana devise.
   private
