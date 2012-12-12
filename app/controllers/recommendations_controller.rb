@@ -40,7 +40,7 @@ class RecommendationsController < ApplicationController
 
 		if status == 201
 			recommendation = Recommendation.create({:source_id => current_user.id, :target_id => params[:id], :type => params[:type], :resource_id => params[:resource_id], :read => 0})
-	    	Pusher.trigger('notification_'+params[:id], params[:type]+'_recommendation', {:resource_id => params[:resource_id], :resource_name => resource_name, :source_id => current_user.id, :source_username => current_user.username })
+	    	Pusher.trigger('notifications_'+params[:id], params[:type]+'_recommendation', {:resource_id => params[:resource_id], :resource_name => resource_name, :source_id => current_user.id, :source_username => current_user.username })
     	end
 
 		respond_to do |format|
