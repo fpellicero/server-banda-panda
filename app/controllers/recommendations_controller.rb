@@ -82,7 +82,7 @@ class RecommendationsController < ApplicationController
     	end
 
 		if status == 200
-			recommendations = Recommendation.where("target_id = ?", "#{params[:id]}")
+			recommendations = Recommendation.where("target_id = ?", "#{params[:id]}").order("created_at DESC")
 
 			recommendations.each do |r|
 				username = User.find(r.source_id).username
