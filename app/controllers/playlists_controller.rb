@@ -4,6 +4,9 @@ class PlaylistsController < ApplicationController
 	# {playlist_name: String, songs: [song_id]*}
 	def create
 		status = 201
+		if params[:songs] && !params[:songs].empty?
+			songsArray = ActiveSupport::JSON.decode(params[:songs])
+		end
 
 		if !User.exists?(params[:id])
 		  	status = 404
@@ -12,7 +15,8 @@ class PlaylistsController < ApplicationController
     	end
 
 		if params[:songs] && !params[:songs].empty? && status == 201
-			params[:songs].each do |s|
+
+			songsArray.each do |s|
 				if !s.is_i? || !(Integer(s) > 0)
 		        	status = 400
 		    	elsif !Song.exists?(s)
@@ -25,7 +29,8 @@ class PlaylistsController < ApplicationController
 			@playlist = Playlist.create({:name => params[:name], :user_id => params[:id]})
 
 			if params[:songs] && !params[:songs].empty?
-				params[:songs].each do |s|
+				
+				songsArray.each do |s|
 					song = Song.find(s)
 					@playlist.song << song
 				end
