@@ -75,9 +75,47 @@ var loggedUser;
 		
 	};
 
+	function log_out () {
+		event.preventDefault();
+
+		document.cookie = 'remember_user_id=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+		document.cookie = 'remember_user_token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+		window.location.reload()
+	}
+
+	function modify_profile(email, username) {
+		event.preventDefault();
+		var data = new Object();
+		if(email != "") {
+			data.email = email
+			
+		}
+		if(username != "") {
+			data.username = username
+		}
+		console.log(data);
+		$.ajax({
+	        url: "/api/users/" + loggedUser.id,
+	        type: "PUT",
+	        headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
+	        dataType: "json",
+	        data: data,
+	        success: function() {
+	        	notifications.printNotification("User information updated");
+	        }
+	    });
+	}
+
 	// Un cop tenim el DOM carregat, fem el bind.
 	$(document).ready(function() {
 		$("#login").submit(log_in);
+		$("#logoutButton").click(log_out);
+		$("#editProfileWindow form").submit(function() {
+			var email = $("#editEmail").val();
+			var username = $("#editUsername").val();
+			modify_profile(email,username);
+		});
+		document.cookie = 'server-banda-panda_session=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 		check_remember();
 	});
 

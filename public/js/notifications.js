@@ -4,11 +4,18 @@ var notifications = new Object();
 (function() {
       var notifications_list = [];
 
+      notifications.printNotification = function(text) {
+        var notification = $("#notification-template").clone().attr("id","").prependTo("#notifications");
+        notification.text(text);
+          
+        $(notification).fadeIn().delay(3000).fadeOut();
+      }
+
       notifications.renderNotifications = function() {
 
             function addNotification(notification) {
-                  var notificationElement = $("#notificationMenuTemplate").clone().attr("id","").prependTo(".notifications ul").removeClass("hidden");
-                  var text = notification.source_id + " recommended you the " + notification.type + ": " + notification.resource_id;
+                  var notificationElement = $("#notificationMenuTemplate").clone().attr("id","").appendTo(".notifications ul").removeClass("hidden");
+                  var text = notification.source_username + " recommended you the " + notification.type + ": " + notification.resource_name;
                   if(notification.read == 0) {
                     notificationElement.addClass("unread");
                   }
@@ -62,11 +69,6 @@ var notifications = new Object();
       notifications.init = function() {
             var pusher = new Pusher('37cc28f59fd3d3e4f801');
             var channel = pusher.subscribe('notifications_' + loggedUser.id);
-            // Enable pusher logging - don't include this in production
-                Pusher.log = function(message) {
-                  if (window.console && window.console.log) window.console.log(message);
-                };
-                console.log("HUSBISI");
             
             channel.bind('song_recommendation', function(data) {
                   var notification = $("#notification-template").clone().attr("id","").prependTo("#notifications");
