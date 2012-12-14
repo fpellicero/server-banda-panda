@@ -17,7 +17,8 @@ class PlaylistsController < ApplicationController
 		if params[:songs] && !params[:songs].empty? && status == 201
 
 			songsArray.each do |s|
-				if !s.is_i? || !(Integer(s) > 0)
+				s = Integer(s)
+				if s < 0
 		        	status = 400
 		    	elsif !Song.exists?(s)
 		    		status = 400
