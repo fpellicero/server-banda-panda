@@ -26,11 +26,32 @@ var albums = new Object();
 			$("span.title").text(album.album_title);
 			$("span.artist").text(album.artist_name);
 			$("button.buttonPlay").click(function() {
-				audioPlayer.playPlaylistNow(songs);
+				var albumSongs = [];
+				$(album.album_songs).each(function() {
+					this.cover_url = album.cover_url;
+					this.album_title = album.album_title;
+					this.artist_name = album.artist_name;
+					albumSongs.push(this);
+				});
+				audioPlayer.playPlaylistNow(albumSongs);
 			});
+			
+			$("button.buttonAdd").unbind("click");
 			$("button.buttonAdd").click(function() {
-				audioPlayer.addPlaylistToCurrent(songs);
+				var albumSongs = [];
+				$(album.album_songs).each(function() {
+					this.cover_url = album.cover_url;
+					this.album_title = album.album_title;
+					this.artist_name = album.artist_name;
+					albumSongs.push(this);
+				})
+				audioPlayer.addPlaylistToCurrent(albumSongs);
+			});
+			$("button.buttonRecomend").unbind("click");
+			$("button.buttonRecomend").click(function() {
+				recomendations.showUser("album", album_id);
 			})
+
 
 			$("#albumSongs").empty();
 			$(album.album_songs).each(function() {
@@ -39,12 +60,12 @@ var albums = new Object();
 		}
 
 		$.ajax({
-        url: "/api/albums/" + album_id,
-        headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
-        success: function(data,textStatus,jqXHR){
-            printAlbum(data);
-        },
-        dataType: "json",
+	        url: "/api/albums/" + album_id,
+	        headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
+	        success: function(data,textStatus,jqXHR){
+	            printAlbum(data);
+	        },
+	        dataType: "json",
         });
 	}
 })();

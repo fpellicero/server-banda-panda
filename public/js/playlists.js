@@ -40,12 +40,12 @@ playlistsInterface.renderPlaylist = function (playlist_id) {
         url: "/api/playlists/" + playlist_id,
         headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
         success: function(data,textStatus,jqXHR){
-        	paintResults(data);	
+        	paintResults(playlist_id, data);	
         },
         dataType: "json",
     });
 
-    function paintResults(playlist) {
+    function paintResults(playlist_id, playlist) {
     	function addSong(song) {
 			var songElement = $("#songPlaylist-Template").clone().attr("id","").appendTo("#playlistSongs").removeClass("hidden");
 			$("td.songTitle",songElement).text(song.song_title);
@@ -62,7 +62,11 @@ playlistsInterface.renderPlaylist = function (playlist_id) {
 			});
 			$("button.playButton",songElement).click(function() {
 				audioPlayer.playSongNow(song);
-			})	
+			})
+			$("button.deleteButton",songElement).click(function() {
+				deleteSongFromPlaylist(playlist_id, song.song_id);
+				$(songElement).remove();
+			})
 		}
 
 		$("#playlistSongs").empty();
@@ -70,8 +74,24 @@ playlistsInterface.renderPlaylist = function (playlist_id) {
 		$(playlist.songs).each(function() {
 			addSong(this);
 		});
-		playlistsInterface.selectedPlaylist = playlist;
 
+		playlistsInterface.selectedPlaylist = playlist;
+		$("#deletePlaylistButton").unbind("click");
+		$("#deletePlaylistButton").click(function() {
+			$.ajax({
+				url: "/api/playlists/" + playlist_id,
+				type: "DELETE",
+				headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
+				success: function() {
+					playlistsInterface.getPlaylists(0);
+				}
+			});
+			mainLayout.showMusicSearch(event);
+		});
+		$("#recommendPlaylistButton").unbind("click");
+		$("#recommendPlaylistButton").click(function() {
+			recomendations.showUser("playlist", playlist_id);
+		})
     }
 
 	
@@ -101,6 +121,15 @@ playlistsInterface.addSongToPlaylist = function (song_id, playlist_id) {
     });
 	
 }
+
+function deleteSongFromPlaylist(playlist_id, song_id) {
+	$.ajax({
+		url:"/api/playlists/" + playlist_id + "/" + song_id,
+		type:"DELETE",
+		headers: { "X-AUTH-TOKEN": loggedUser.auth_token}
+	});
+}
+
 
 $(document).ready(function() {
 	$("#playPlaylistButton").click(function() {

@@ -18,6 +18,40 @@ var artists = new Object();
 				$("td.albumTitle",albumElement).click(function() {
 					mainLayout.showAlbum(album.album_id);
 				})
+				$("td.buttons button.addButton",albumElement).click(function() {
+					$.ajax({
+						url: "/api/albums/" + album.album_id,
+						headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
+						success: function(data) {
+							var songsAlbum = [];
+							$(data.album_songs).each(function() {
+								this.cover_url = album.album_cover;
+								this.album_title = album.album_title;
+								this.artist_name = artist.artist_name
+								songsAlbum.push(this);
+							});
+							audioPlayer.addPlaylistToCurrent(songsAlbum);
+						},
+						dataType: "json"
+					});
+				});
+				$("td.buttons button.playButton",albumElement).click(function() {
+					$.ajax({
+						url: "/api/albums/" + album.album_id,
+						headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
+						success: function(data) {
+							var songsAlbum = [];
+							$(data.album_songs).each(function() {
+								this.cover_url = album.album_cover;
+								this.album_title = album.album_title;
+								this.artist_name = artist.artist_name
+								songsAlbum.push(this);
+							});
+							audioPlayer.playPlaylistNow(songsAlbum);
+						},
+						dataType: "json"
+					});
+				});
 			}
 		
 			$("#artistPortrait").attr("src",artist.artist_image);

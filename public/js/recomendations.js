@@ -27,14 +27,14 @@ var recomendations = new Object();
 	function showResults(data) {
 
 		function addUser(user) {
-			console.log(user);
+			
 			var userElement = $("#searchUserTemplate").clone().attr("id","").appendTo("#userSearchTable").removeClass("hidden");
 			$("td",userElement).text(user.user_username);
 			$(userElement).click(function() {
 				recommend(recomendationType, recomendationResource, user.user_id);
 			});
 		}
-		console.log(data);
+		$("#userSearchTable").empty();
 		$(data).each(function() {
 			addUser(this);
 		});

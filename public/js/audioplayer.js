@@ -76,6 +76,7 @@ var audioPlayer = new Object();
 	}
 
 	function addPlaylistToCurrent(playlist) {
+		console.log(playlist);
 		currentPlaylist = currentPlaylist.concat(playlist);
 		renderPlaylist();
 	}

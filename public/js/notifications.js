@@ -72,49 +72,49 @@ var notifications = new Object();
             
             channel.bind('song_recommendation', function(data) {
                   var notification = $("#notification-template").clone().attr("id","").prependTo("#notifications");
-                  notification.text(data.source_id + " recommended you the song: " + data.resource_id);
+                  notification.text(data.source_username + " recommended you the song: " + data.resource_name);
           
                   $(notification).fadeIn().delay(3000).fadeOut();
                   
                   data.type = "song";
                   data.read = 0;
-                  notifications_list.push(data);
+                  notifications_list.unshift(data);
                   notifications.renderNotifications();
             });
 
             channel.bind('album_recommendation', function(data) {
                   var notification = $("#notification-template").clone().attr("id","").prependTo("#notifications");
-                  notification.text(data.source_id + " recommended you the album: " + data.resource_id);
+                  notification.text(data.source_username + " recommended you the album: " + data.resource_name);
           
                   $(notification).fadeIn().delay(3000).fadeOut();
                   
                   data.type = "album";
                   data.read = 0;
-                  notifications_list.push(data);
+                  notifications_list.unshift(data);
                   notifications.renderNotifications();
             });
 
             channel.bind('artist_recommendation', function(data) {
                   var notification = $("#notification-template").clone().attr("id","").prependTo("#notifications");
-                  notification.text(data.source_id + " recommended you the artist: " + data.resource_id);
+                  notification.text(data.source_username + " recommended you the artist: " + data.resource_name);
           
                   $(notification).fadeIn().delay(3000).fadeOut();
                   
                   data.type = "artist";
                   data.read = 0;
-                  notifications_list.push(data);
+                  notifications_list.unshift(data);
                   notifications.renderNotifications();
             });
 
             channel.bind('playlist_recommendation', function(data) {
                   var notification = $("#notification-template").clone().attr("id","").prependTo("#notifications");
-                  notification.text(data.source_id + " recommended you the playlist: " + data.resource_id);
+                  notification.text(data.source_username + " recommended you the playlist: " + data.resource_name);
                   
                   $(notification).fadeIn().delay(3000).fadeOut();
                   
                   data.type = "playlist";
                   data.read = 0;
-                  notifications_list.push(data);
+                  notifications_list.unshift(data);
                   notifications.renderNotifications();
             });     
       }
