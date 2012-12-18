@@ -92,8 +92,10 @@ class RecommendationsController < ApplicationController
 					resource_name = Album.find(r.resource_id).title
 				elsif r.type == "artist"
 					resource_name = Artist.find(r.resource_id).name
-				else
+				elsif r.type == "playlist" && Playlist.exists?(r.resource_id)
 					resource_name = Playlist.find(r.resource_id).name
+				else 
+					resource_name = ""
 				end 
 						
 					

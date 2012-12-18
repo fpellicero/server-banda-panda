@@ -42,6 +42,9 @@ playlistsInterface.renderPlaylist = function (playlist_id) {
         success: function(data,textStatus,jqXHR){
         	paintResults(playlist_id, data);	
         },
+        error: function() {
+        	alert("404 Error: Playlist doesn't exist");
+        },
         dataType: "json",
     });
 
@@ -104,7 +107,9 @@ playlistsInterface.createPlaylist = function (playlist) {
         contentType: "application/json",
         headers: { "X-AUTH-TOKEN": loggedUser.auth_token},
         data: JSON.stringify(playlist),
-        success: playlistsInterface.getPlaylists(),
+        success: function() {
+        	playlistsInterface.getPlaylists(0);
+        }
     });
 
 	playlistsInterface.getPlaylists(0);
