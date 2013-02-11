@@ -10,6 +10,9 @@ El sistema distribuït consta de 3 elements:
 
 Per a una visió detallada de què és el sistema, quin problema aborda i com el soluciona, es pot veure la memòria de projecte: http://dl.dropbox.com/u/22416047/BandaPanda/Memoria.pdf
 
+Una versió funcional es troba desplegada a: http://polar-thicket-1771.herokuapp.com/
+Per a accedir es pot utilitzar el mail "test@example.com" i pass "testing"
+
 Servidor
 ===========
 
